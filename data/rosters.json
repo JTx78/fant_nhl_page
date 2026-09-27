@@ -124,7 +124,23 @@
        "a": 45
       }
      },
-     null
+     {
+      "playerId": 8476459,
+      "name": "Mika Zibanejad",
+      "teamAbbrev": "NYR",
+      "pos": "C",
+      "age": 33,
+      "recent": {
+       "season": "'25-26",
+       "g": 34,
+       "a": 44
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 20,
+       "a": 42
+      }
+     }
     ],
     "D": [
      {
@@ -284,7 +300,23 @@
        "a": 43
       }
      },
-     null,
+     {
+      "playerId": 8479385,
+      "name": "Jordan Kyrou",
+      "teamAbbrev": "WSH",
+      "pos": "RW",
+      "age": 28,
+      "recent": {
+       "season": "'25-26",
+       "g": 18,
+       "a": 28
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 36,
+       "a": 34
+      }
+     },
      null
     ],
     "D": [
@@ -925,7 +957,23 @@
        "a": 29
       }
      },
-     null
+     {
+      "playerId": 8481524,
+      "name": "Bowen Byram",
+      "teamAbbrev": "CHI",
+      "pos": "D",
+      "age": 25,
+      "recent": {
+       "season": "'25-26",
+       "g": 11,
+       "a": 31
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 7,
+       "a": 31
+      }
+     }
     ],
     "T": [
      null
@@ -1505,6 +1553,24 @@
    "teamId": "mac",
    "name": "Erik Karlsson",
    "pos": "D"
+  },
+  {
+   "pick": 64,
+   "teamId": "mike",
+   "name": "Jordan Kyrou",
+   "pos": "F"
+  },
+  {
+   "pick": 65,
+   "teamId": "james",
+   "name": "Bowen Byram",
+   "pos": "D"
+  },
+  {
+   "pick": 66,
+   "teamId": "you",
+   "name": "Mika Zibanejad",
+   "pos": "F"
   }
  ]
 }
