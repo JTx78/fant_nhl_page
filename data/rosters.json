@@ -711,7 +711,23 @@
        "a": 0
       }
      },
-     null
+     {
+      "playerId": 8477409,
+      "name": "Carter Verhaeghe",
+      "teamAbbrev": "FLA",
+      "pos": "C",
+      "age": 31,
+      "recent": {
+       "season": "'25-26",
+       "g": 25,
+       "a": 30
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 20,
+       "a": 33
+      }
+     }
     ],
     "D": [
      {
@@ -1570,6 +1586,12 @@
    "pick": 66,
    "teamId": "you",
    "name": "Mika Zibanejad",
+   "pos": "F"
+  },
+  {
+   "pick": 67,
+   "teamId": "travis",
+   "name": "Carter Verhaeghe",
    "pos": "F"
   }
  ]
