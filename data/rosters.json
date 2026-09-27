@@ -582,7 +582,15 @@
      }
     ],
     "T": [
-     null
+     {
+      "name": "Washington Capitals",
+      "teamAbbrev": "WSH",
+      "recent": {
+       "season": "'25-26",
+       "ga": 244,
+       "so": 5
+      }
+     }
     ]
    },
    "replaced": []
@@ -1593,6 +1601,12 @@
    "teamId": "travis",
    "name": "Carter Verhaeghe",
    "pos": "F"
+  },
+  {
+   "pick": 68,
+   "teamId": "matt",
+   "name": "Washington Capitals",
+   "pos": "T"
   }
  ]
 }
