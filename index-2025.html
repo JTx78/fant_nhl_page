@@ -365,11 +365,11 @@
     renderRoster(team);
   }
 
-  fetch('data/rosters-2025.json', { cache: 'no-cache' })
+  fetch('data/2025-2026/rosters.json', { cache: 'no-cache' })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(function (data) { TEAMS = data.teams; renderAll(); })
     .catch(function () {
-      document.getElementById('teamHeading').textContent = 'Could not load rosters-2025.json';
+      document.getElementById('teamHeading').textContent = 'Could not load data/2025-2026/rosters.json';
     });
 </script>
 </body>

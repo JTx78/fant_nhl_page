@@ -285,15 +285,29 @@
     });
   }
 
+  const SEASON_DIR = 'data/2026-2027';
+
+  // playerdata.json and teamdata.json are fetched separately and merged into the single
+  // {season, asOf, players, teams} shape dashboard-calc.js expects.
+  function getStatsPair(prefix) {
+    return Promise.all([
+      getJSON(SEASON_DIR + '/' + prefix + 'playerdata.json').catch(function () { return null; }),
+      getJSON(SEASON_DIR + '/' + prefix + 'teamdata.json').catch(function () { return null; })
+    ]).then(function (r) {
+      if (!r[0] || !r[1]) return null;
+      return { season: r[0].season, asOf: r[0].asOf, players: r[0].players, teams: r[1].teams };
+    });
+  }
+
   function load() {
     const forceSample = /[?&]sample\b/.test(location.search);
-    return Promise.all([getJSON('data/rosters.json'), forceSample ? Promise.resolve(null) : getJSON('data/stats.json').catch(function () { return null; })])
+    return Promise.all([getJSON(SEASON_DIR + '/rosters.json'), forceSample ? Promise.resolve(null) : getStatsPair('')])
       .then(function (res) {
         const rosters = res[0];
         let stats = res[1], sample = false;
         if (!stats || !stats.asOf) {
           sample = true;
-          return getJSON('data/sample-stats.json').then(function (s) { return { rosters: rosters, stats: s, sample: sample }; });
+          return getStatsPair('sample-').then(function (s) { return { rosters: rosters, stats: s, sample: sample }; });
         }
         return { rosters: rosters, stats: stats, sample: sample };
       });

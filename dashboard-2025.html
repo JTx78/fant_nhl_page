@@ -288,9 +288,17 @@
     });
   }
 
+  const SEASON_DIR = 'data/2025-2026';
+
   function load() {
-    return Promise.all([getJSON('data/rosters-2025.json'), getJSON('data/stats-2025.json')])
-      .then(function (res) { return { rosters: res[0], stats: res[1], sample: false }; });
+    return Promise.all([
+      getJSON(SEASON_DIR + '/rosters.json'),
+      getJSON(SEASON_DIR + '/playerdata.json'),
+      getJSON(SEASON_DIR + '/teamdata.json')
+    ]).then(function (res) {
+      const stats = { season: res[1].season, asOf: res[1].asOf, players: res[1].players, teams: res[2].teams };
+      return { rosters: res[0], stats: stats, sample: false };
+    });
   }
 
   function renderStandings() {
@@ -402,7 +410,7 @@
 
   // The 2025-26 rule excluded empty-net goals from a Team pick's GA; the day-by-day
   // game log we fetch can't reproduce that split, so it overstates GA slightly. Reconcile
-  // each team's final Team-pick score to the season's official total (from rosters-2025.json),
+  // each team's final Team-pick score to the season's official total (from 2025-2026/rosters.json),
   // shifting that team's whole cumulative line by the constant difference so the standings
   // table and the lineup card agree exactly, while the chart's shape stays intact.
   function reconcileTeamPicks(model, rosters) {

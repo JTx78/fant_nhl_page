@@ -25,16 +25,16 @@ jobs:
           python-version: '3.x'
 
       - name: Fetch player and team game logs
-        run: python3 scripts/fetch_stats.py --out data/stats.json
+        run: python3 scripts/fetch_stats.py --out-dir data/2026-2027
 
-      - name: Commit data/stats.json if it changed
+      - name: Commit playerdata.json / teamdata.json if either changed
         run: |
-          if git diff --quiet -- data/stats.json; then
+          if git diff --quiet -- data/2026-2027/playerdata.json data/2026-2027/teamdata.json; then
             echo "No new games; nothing to commit."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/stats.json
+          git add data/2026-2027/playerdata.json data/2026-2027/teamdata.json
           git commit -m "Nightly stats update ($(date -u +%Y-%m-%d))"
           git push

@@ -398,11 +398,11 @@
     renderAll();
   }
 
-  fetch('data/rosters.json', { cache: 'no-cache' })
+  fetch('data/2026-2027/rosters.json', { cache: 'no-cache' })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(applyData)
     .catch(function () {
-      document.getElementById('lastUpdated').textContent = 'Could not load rosters.json';
+      document.getElementById('lastUpdated').textContent = 'Could not load data/2026-2027/rosters.json';
     });
 </script>
 </body>

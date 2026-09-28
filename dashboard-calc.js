@@ -8,7 +8,10 @@
     return d.toISOString().slice(0, 10);
   }
 
-  // rosters: data/rosters.json, stats: data/stats.json (players: id -> [[date,g,a]], teams: abbr -> [[date,ga,so]])
+  // rosters: <season>/rosters.json
+  // stats: merged from <season>/playerdata.json + teamdata.json — players: id -> [{date,g,a,...}], teams: abbr -> [[date,ga,so]]
+  // (team records stay a plain triple; the empty-net-goals question is a separate,
+  // still-open change to how team_log() sources GA, not a schema shape issue)
   function buildModel(rosters, stats) {
     const dateSet = new Set();
     const players = [];
@@ -25,11 +28,11 @@
           const rows = (stats.players && stats.players[String(p.playerId)]) || [];
           const pl = { name: p.name, pos: pos, owner: t.id, ownerName: t.name, fp: 0, gp: 0, g: 0, a: 0, rows: [] };
           rows.forEach(function (r) {
-            const pts = fp(r[1], r[2]);
-            const x = day(r[0]);
+            const pts = fp(r.g, r.a);
+            const x = day(r.date);
             x.pts += pts; x.skPts += pts; x.skGP += 1;
-            pl.fp += pts; pl.gp += 1; pl.g += r[1]; pl.a += r[2];
-            pl.rows.push([r[0], pts, r[1], r[2]]);
+            pl.fp += pts; pl.gp += 1; pl.g += r.g; pl.a += r.a;
+            pl.rows.push(Object.assign({ pts: pts }, r));
           });
           m[pos.toLowerCase()] += pl.fp;
           m.skFp += pl.fp; m.skGP += pl.gp;
@@ -77,7 +80,7 @@
       const win = players.map(function (p) {
         let pts = 0, gp = 0, g = 0, a = 0;
         p.rows.forEach(function (r) {
-          if (r[0] >= cutoff) { pts += r[1]; gp++; g += r[2]; a += r[3]; }
+          if (r.date >= cutoff) { pts += r.pts; gp++; g += r.g; a += r.a; }
         });
         return { name: p.name, pos: p.pos, ownerName: p.ownerName, owner: p.owner, fp: pts, gp: gp, g: g, a: a };
       }).filter(function (p) { return p.gp > 0; });
