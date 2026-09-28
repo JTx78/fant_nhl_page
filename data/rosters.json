@@ -177,7 +177,23 @@
        "a": 51
       }
      },
-     null
+     {
+      "playerId": 8481542,
+      "name": "Moritz Seider",
+      "teamAbbrev": "DET",
+      "pos": "D",
+      "age": 25,
+      "recent": {
+       "season": "'25-26",
+       "g": 10,
+       "a": 50
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 8,
+       "a": 38
+      }
+     }
     ],
     "T": [
      {
@@ -1016,7 +1032,15 @@
      }
     ],
     "T": [
-     null
+     {
+      "name": "Minnesota Wild",
+      "teamAbbrev": "MIN",
+      "recent": {
+       "season": "'25-26",
+       "ga": 240,
+       "so": 8
+      }
+     }
     ]
    },
    "replaced": []
@@ -1651,6 +1675,18 @@
    "teamId": "mike",
    "name": "Brock Nelson",
    "pos": "F"
+  },
+  {
+   "pick": 71,
+   "teamId": "james",
+   "name": "Minnesota Wild",
+   "pos": "T"
+  },
+  {
+   "pick": 72,
+   "teamId": "you",
+   "name": "Moritz Seider",
+   "pos": "D"
   }
  ]
 }
