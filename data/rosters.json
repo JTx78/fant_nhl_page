@@ -1129,7 +1129,23 @@
        "a": 52
       }
      },
-     null
+     {
+      "playerId": 8482078,
+      "name": "Lucas Raymond",
+      "teamAbbrev": "DET",
+      "pos": "LW",
+      "age": 24,
+      "recent": {
+       "season": "'25-26",
+       "g": 25,
+       "a": 51
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 27,
+       "a": 53
+      }
+     }
     ],
     "D": [
      {
@@ -1607,6 +1623,12 @@
    "teamId": "matt",
    "name": "Washington Capitals",
    "pos": "T"
+  },
+  {
+   "pick": 69,
+   "teamId": "mac",
+   "name": "Lucas Raymond",
+   "pos": "F"
   }
  ]
 }
