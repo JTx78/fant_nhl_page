@@ -1,0 +1,40 @@
+name: Nightly stats fetch
+
+on:
+  schedule:
+    # ~04:00 America/New_York (EST, UTC-5); one hour earlier in EDT.
+    # Late enough that West Coast games (10pm ET starts) are long final.
+    - cron: '0 9 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nightly-stats
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Fetch player and team game logs
+        run: python3 scripts/fetch_stats.py --out data/stats.json
+
+      - name: Commit data/stats.json if it changed
+        run: |
+          if git diff --quiet -- data/stats.json; then
+            echo "No new games; nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/stats.json
+          git commit -m "Nightly stats update ($(date -u +%Y-%m-%d))"
+          git push

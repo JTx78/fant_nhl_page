@@ -90,9 +90,57 @@
        "a": 39
       }
      },
-     null,
-     null,
-     null
+     {
+      "playerId": 8482116,
+      "name": "Tim Stützle",
+      "teamAbbrev": "OTT",
+      "pos": "C",
+      "age": 24,
+      "recent": {
+       "season": "'25-26",
+       "g": 34,
+       "a": 49
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 24,
+       "a": 55
+      }
+     },
+     {
+      "playerId": 8476887,
+      "name": "Filip Forsberg",
+      "teamAbbrev": "NSH",
+      "pos": "LW",
+      "age": 32,
+      "recent": {
+       "season": "'25-26",
+       "g": 40,
+       "a": 35
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 31,
+       "a": 45
+      }
+     },
+     {
+      "playerId": 8476459,
+      "name": "Mika Zibanejad",
+      "teamAbbrev": "NYR",
+      "pos": "C",
+      "age": 33,
+      "recent": {
+       "season": "'25-26",
+       "g": 34,
+       "a": 44
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 20,
+       "a": 42
+      }
+     }
     ],
     "D": [
      {
@@ -129,7 +177,23 @@
        "a": 51
       }
      },
-     null
+     {
+      "playerId": 8481542,
+      "name": "Moritz Seider",
+      "teamAbbrev": "DET",
+      "pos": "D",
+      "age": 25,
+      "recent": {
+       "season": "'25-26",
+       "g": 10,
+       "a": 50
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 8,
+       "a": 38
+      }
+     }
     ],
     "T": [
      {
@@ -218,10 +282,74 @@
        "a": 25
       }
      },
-     null,
-     null,
-     null,
-     null
+     {
+      "playerId": 8482699,
+      "name": "Dylan Guenther",
+      "teamAbbrev": "UTA",
+      "pos": "RW",
+      "age": 23,
+      "recent": {
+       "season": "'25-26",
+       "g": 40,
+       "a": 33
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 27,
+       "a": 33
+      }
+     },
+     {
+      "playerId": 8477951,
+      "name": "Nick Schmaltz",
+      "teamAbbrev": "UTA",
+      "pos": "C",
+      "age": 30,
+      "recent": {
+       "season": "'25-26",
+       "g": 33,
+       "a": 41
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 20,
+       "a": 43
+      }
+     },
+     {
+      "playerId": 8479385,
+      "name": "Jordan Kyrou",
+      "teamAbbrev": "WSH",
+      "pos": "RW",
+      "age": 28,
+      "recent": {
+       "season": "'25-26",
+       "g": 18,
+       "a": 28
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 36,
+       "a": 34
+      }
+     },
+     {
+      "playerId": 8475754,
+      "name": "Brock Nelson",
+      "teamAbbrev": "COL",
+      "pos": "C",
+      "age": 34,
+      "recent": {
+       "season": "'25-26",
+       "g": 33,
+       "a": 32
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 26,
+       "a": 30
+      }
+     }
     ],
     "D": [
      {
@@ -397,8 +525,40 @@
        "a": 38
       }
      },
-     null,
-     null
+     {
+      "playerId": 8477933,
+      "name": "Sam Reinhart",
+      "teamAbbrev": "FLA",
+      "pos": "C",
+      "age": 30,
+      "recent": {
+       "season": "'25-26",
+       "g": 29,
+       "a": 32
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 39,
+       "a": 42
+      }
+     },
+     {
+      "playerId": 8479343,
+      "name": "Clayton Keller",
+      "teamAbbrev": "UTA",
+      "pos": "RW",
+      "age": 28,
+      "recent": {
+       "season": "'25-26",
+       "g": 26,
+       "a": 62
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 30,
+       "a": 60
+      }
+     }
     ],
     "D": [
      {
@@ -435,10 +595,34 @@
        "a": 60
       }
      },
-     null
+     {
+      "playerId": 8480036,
+      "name": "Miro Heiskanen",
+      "teamAbbrev": "DAL",
+      "pos": "D",
+      "age": 27,
+      "recent": {
+       "season": "'25-26",
+       "g": 9,
+       "a": 54
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 5,
+       "a": 20
+      }
+     }
     ],
     "T": [
-     null
+     {
+      "name": "Washington Capitals",
+      "teamAbbrev": "WSH",
+      "recent": {
+       "season": "'25-26",
+       "ga": 244,
+       "so": 5
+      }
+     }
     ]
    },
    "replaced": []
@@ -550,8 +734,40 @@
        "a": 40
       }
      },
-     null,
-     null
+     {
+      "playerId": 8486103,
+      "name": "Ivar Stenberg",
+      "teamAbbrev": "SJS",
+      "pos": "LW",
+      "age": 18,
+      "recent": {
+       "season": "No NHL games yet",
+       "g": 0,
+       "a": 0
+      },
+      "prior": {
+       "season": "Drafted #2 overall, 2026",
+       "g": 0,
+       "a": 0
+      }
+     },
+     {
+      "playerId": 8477409,
+      "name": "Carter Verhaeghe",
+      "teamAbbrev": "FLA",
+      "pos": "C",
+      "age": 31,
+      "recent": {
+       "season": "'25-26",
+       "g": 25,
+       "a": 30
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 20,
+       "a": 33
+      }
+     }
     ],
     "D": [
      {
@@ -588,7 +804,23 @@
        "a": 0
       }
      },
-     null
+     {
+      "playerId": 8474590,
+      "name": "John Carlson",
+      "teamAbbrev": "TBL",
+      "pos": "D",
+      "age": 36,
+      "recent": {
+       "season": "'25-26",
+       "g": 14,
+       "a": 46
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 5,
+       "a": 46
+      }
+     }
     ],
     "T": [
      {
@@ -728,7 +960,23 @@
        "a": 33
       }
      },
-     null
+     {
+      "playerId": 8484166,
+      "name": "Adam Fantilli",
+      "teamAbbrev": "CBJ",
+      "pos": "C",
+      "age": 21,
+      "recent": {
+       "season": "'25-26",
+       "g": 24,
+       "a": 35
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 31,
+       "a": 23
+      }
+     }
     ],
     "D": [
      {
@@ -748,11 +996,51 @@
        "a": 31
       }
      },
-     null,
-     null
+     {
+      "playerId": 8481605,
+      "name": "Jackson LaCombe",
+      "teamAbbrev": "ANA",
+      "pos": "D",
+      "age": 25,
+      "recent": {
+       "season": "'25-26",
+       "g": 10,
+       "a": 48
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 14,
+       "a": 29
+      }
+     },
+     {
+      "playerId": 8481524,
+      "name": "Bowen Byram",
+      "teamAbbrev": "CHI",
+      "pos": "D",
+      "age": 25,
+      "recent": {
+       "season": "'25-26",
+       "g": 11,
+       "a": 31
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 7,
+       "a": 31
+      }
+     }
     ],
     "T": [
-     null
+     {
+      "name": "Minnesota Wild",
+      "teamAbbrev": "MIN",
+      "recent": {
+       "season": "'25-26",
+       "ga": 240,
+       "so": 8
+      }
+     }
     ]
    },
    "replaced": []
@@ -864,8 +1152,40 @@
        "a": 31
       }
      },
-     null,
-     null
+     {
+      "playerId": 8478550,
+      "name": "Artemi Panarin",
+      "teamAbbrev": "LAK",
+      "pos": "LW",
+      "age": 34,
+      "recent": {
+       "season": "'25-26",
+       "g": 28,
+       "a": 56
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 37,
+       "a": 52
+      }
+     },
+     {
+      "playerId": 8482078,
+      "name": "Lucas Raymond",
+      "teamAbbrev": "DET",
+      "pos": "LW",
+      "age": 24,
+      "recent": {
+       "season": "'25-26",
+       "g": 25,
+       "a": 51
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 27,
+       "a": 53
+      }
+     }
     ],
     "D": [
      {
@@ -902,10 +1222,34 @@
        "a": 27
       }
      },
-     null
+     {
+      "playerId": 8474578,
+      "name": "Erik Karlsson",
+      "teamAbbrev": "PIT",
+      "pos": "D",
+      "age": 36,
+      "recent": {
+       "season": "'25-26",
+       "g": 15,
+       "a": 51
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 11,
+       "a": 42
+      }
+     }
     ],
     "T": [
-     null
+     {
+      "name": "Tampa Bay Lightning",
+      "teamAbbrev": "TBL",
+      "recent": {
+       "season": "'25-26",
+       "ga": 231,
+       "so": 2
+      }
+     }
     ]
    },
    "replaced": []
@@ -1205,6 +1549,144 @@
    "teamId": "travis",
    "name": "Dallas Stars",
    "pos": "T"
+  },
+  {
+   "pick": 50,
+   "teamId": "matt",
+   "name": "Sam Reinhart",
+   "pos": "F"
+  },
+  {
+   "pick": 51,
+   "teamId": "mac",
+   "name": "Tampa Bay Lightning",
+   "pos": "T"
+  },
+  {
+   "pick": 52,
+   "teamId": "mike",
+   "name": "Dylan Guenther",
+   "pos": "F"
+  },
+  {
+   "pick": 53,
+   "teamId": "james",
+   "name": "Adam Fantilli",
+   "pos": "F"
+  },
+  {
+   "pick": 54,
+   "teamId": "you",
+   "name": "Tim Stützle",
+   "pos": "F"
+  },
+  {
+   "pick": 55,
+   "teamId": "travis",
+   "name": "John Carlson",
+   "pos": "D"
+  },
+  {
+   "pick": 56,
+   "teamId": "matt",
+   "name": "Clayton Keller",
+   "pos": "F"
+  },
+  {
+   "pick": 57,
+   "teamId": "mac",
+   "name": "Artemi Panarin",
+   "pos": "F"
+  },
+  {
+   "pick": 58,
+   "teamId": "mike",
+   "name": "Nick Schmaltz",
+   "pos": "F"
+  },
+  {
+   "pick": 59,
+   "teamId": "james",
+   "name": "Jackson LaCombe",
+   "pos": "D"
+  },
+  {
+   "pick": 60,
+   "teamId": "you",
+   "name": "Filip Forsberg",
+   "pos": "F"
+  },
+  {
+   "pick": 61,
+   "teamId": "travis",
+   "name": "Ivar Stenberg",
+   "pos": "F"
+  },
+  {
+   "pick": 62,
+   "teamId": "matt",
+   "name": "Miro Heiskanen",
+   "pos": "D"
+  },
+  {
+   "pick": 63,
+   "teamId": "mac",
+   "name": "Erik Karlsson",
+   "pos": "D"
+  },
+  {
+   "pick": 64,
+   "teamId": "mike",
+   "name": "Jordan Kyrou",
+   "pos": "F"
+  },
+  {
+   "pick": 65,
+   "teamId": "james",
+   "name": "Bowen Byram",
+   "pos": "D"
+  },
+  {
+   "pick": 66,
+   "teamId": "you",
+   "name": "Mika Zibanejad",
+   "pos": "F"
+  },
+  {
+   "pick": 67,
+   "teamId": "travis",
+   "name": "Carter Verhaeghe",
+   "pos": "F"
+  },
+  {
+   "pick": 68,
+   "teamId": "matt",
+   "name": "Washington Capitals",
+   "pos": "T"
+  },
+  {
+   "pick": 69,
+   "teamId": "mac",
+   "name": "Lucas Raymond",
+   "pos": "F"
+  },
+  {
+   "pick": 70,
+   "teamId": "mike",
+   "name": "Brock Nelson",
+   "pos": "F"
+  },
+  {
+   "pick": 71,
+   "teamId": "james",
+   "name": "Minnesota Wild",
+   "pos": "T"
+  },
+  {
+   "pick": 72,
+   "teamId": "you",
+   "name": "Moritz Seider",
+   "pos": "D"
   }
  ]
 }
