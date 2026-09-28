@@ -103,6 +103,8 @@
   .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
   h1 { font-family: "Teko", "IBM Plex Sans", sans-serif; font-weight: 600; font-size: 3.2rem; line-height: 0.95; margin: 0.1rem 0 0; letter-spacing: 0.01em; text-wrap: balance; }
   .updated { font-size: 0.8rem; color: var(--ink-muted); white-space: nowrap; }
+  .updated a { color: var(--accent); font-weight: 500; text-decoration: none; }
+  .updated a:hover { text-decoration: underline; }
   .format-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .chip { font-size: 0.78rem; font-family: "IBM Plex Mono", monospace; background: var(--surface-muted); border: 1px solid var(--border); color: var(--ink-muted); padding: 0.3rem 0.65rem; border-radius: 999px; letter-spacing: 0.01em; }
   .chip strong { color: var(--ink); font-weight: 600; }
@@ -197,7 +199,7 @@
         <div class="eyebrow">2026&ndash;27 Season &middot; 6-Team Fantasy Draft</div>
         <h1>Lineup Card</h1>
       </div>
-      <div class="updated" id="lastUpdated">Updated after pick 49 &middot; draft running in WhatsApp</div>
+      <div class="updated"><span id="lastUpdated">Updated after pick 49 &middot; draft running in WhatsApp</span> &middot; <a href="dashboard.html">Season dashboard &rarr;</a></div>
     </div>
     <div class="format-chips">
       <span class="chip">Skaters &mdash; <strong>2&times;G + 1&times;A = Pts</strong></span>
