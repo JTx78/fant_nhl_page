@@ -317,7 +317,23 @@
        "a": 34
       }
      },
-     null
+     {
+      "playerId": 8475754,
+      "name": "Brock Nelson",
+      "teamAbbrev": "COL",
+      "pos": "C",
+      "age": 34,
+      "recent": {
+       "season": "'25-26",
+       "g": 33,
+       "a": 32
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 26,
+       "a": 30
+      }
+     }
     ],
     "D": [
      {
@@ -1628,6 +1644,12 @@
    "pick": 69,
    "teamId": "mac",
    "name": "Lucas Raymond",
+   "pos": "F"
+  },
+  {
+   "pick": 70,
+   "teamId": "mike",
+   "name": "Brock Nelson",
    "pos": "F"
   }
  ]
