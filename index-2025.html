@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="images/favicon-32.png">
+<title>Lineup Card &mdash; 2025&ndash;26 Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3f6f8;
+    --bg-rink: radial-gradient(circle at 15% 0%, #eaf2f6 0%, #f3f6f8 45%);
+    --surface: #ffffff;
+    --surface-muted: #e7edf1;
+    --border: #d3dee6;
+    --ink: #14212c;
+    --ink-muted: #5c7182;
+    --ink-faint: #93a6b4;
+    --accent: #1c6e8c;
+    --accent-ink: #ffffff;
+    --accent-soft: #e3eef2;
+    --warm: #d9840c;
+    --warm-soft: #fbeed9;
+    --good: #1f7a4d;
+    --good-soft: #e1f2e8;
+    --bad: #b3261e;
+    --bad-soft: #fbe4e2;
+    --shadow: 0 1px 2px rgba(20, 33, 44, 0.06), 0 8px 20px -12px rgba(20, 33, 44, 0.18);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0e161d;
+      --bg-rink: radial-gradient(circle at 15% 0%, #142430 0%, #0e161d 45%);
+      --surface: #162330;
+      --surface-muted: #1c2b39;
+      --border: #2b3e4c;
+      --ink: #e8eff3;
+      --ink-muted: #93a8b8;
+      --ink-faint: #5c7182;
+      --accent: #57b7dd;
+      --accent-ink: #06222c;
+      --accent-soft: #1b3a47;
+      --warm: #eba848;
+      --warm-soft: #3a2a10;
+      --good: #4fbf87;
+      --good-soft: #123324;
+      --bad: #e5695f;
+      --bad-soft: #3a1613;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0e161d;
+    --bg-rink: radial-gradient(circle at 15% 0%, #142430 0%, #0e161d 45%);
+    --surface: #162330;
+    --surface-muted: #1c2b39;
+    --border: #2b3e4c;
+    --ink: #e8eff3;
+    --ink-muted: #93a8b8;
+    --ink-faint: #5c7182;
+    --accent: #57b7dd;
+    --accent-ink: #06222c;
+    --accent-soft: #1b3a47;
+    --warm: #eba848;
+    --warm-soft: #3a2a10;
+    --good: #4fbf87;
+    --good-soft: #123324;
+    --bad: #e5695f;
+    --bad-soft: #3a1613;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { background: var(--bg); }
+
+  body {
+    margin: 0;
+    background: var(--bg-rink), var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .num { font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+  .page {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 2.25rem 1.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  /* ---------- Masthead ---------- */
+  .masthead { display: flex; flex-direction: column; gap: 0.9rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+  .masthead-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  h1 { font-family: "Teko", "IBM Plex Sans", sans-serif; font-weight: 600; font-size: 3.2rem; line-height: 0.95; margin: 0.1rem 0 0; letter-spacing: 0.01em; text-wrap: balance; }
+  .updated { font-size: 0.8rem; color: var(--ink-muted); white-space: nowrap; }
+  .updated a { color: var(--accent); font-weight: 500; text-decoration: none; }
+  .updated a:hover { text-decoration: underline; }
+  .format-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chip { font-size: 0.78rem; font-family: "IBM Plex Mono", monospace; background: var(--surface-muted); border: 1px solid var(--border); color: var(--ink-muted); padding: 0.3rem 0.65rem; border-radius: 999px; letter-spacing: 0.01em; }
+  .chip strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Team tabs ---------- */
+  .team-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  button.team-tab {
+    all: unset;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: 999px;
+    padding: 0.42rem 0.9rem;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    box-shadow: var(--shadow);
+  }
+  button.team-tab .fill-badge { font-size: 0.72rem; color: var(--ink-faint); }
+  button.team-tab.active { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  button.team-tab.active .fill-badge { color: var(--accent-ink); opacity: 0.85; }
+  button.team-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- Selected team block ---------- */
+  .team-heading { font-family: "Teko", sans-serif; font-size: 1.9rem; font-weight: 600; letter-spacing: 0.02em; margin: 0; }
+
+  .summary-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); }
+  .summary-stat { background: var(--surface); padding: 0.9rem 1.1rem; display: flex; flex-direction: column; gap: 0.2rem; }
+  .summary-label { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); font-weight: 600; }
+  .summary-value { font-family: "Teko", sans-serif; font-size: 2.1rem; font-weight: 600; line-height: 1; color: var(--ink); }
+  .summary-value .of { font-size: 1.1rem; color: var(--ink-faint); font-family: "IBM Plex Mono", monospace; }
+  .summary-open { font-size: 0.78rem; color: var(--ink-muted); margin-top: 0.15rem; }
+
+  /* ---------- Roster sections ---------- */
+  .roster-section { display: flex; flex-direction: column; gap: 0.8rem; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+  .section-head h2 { font-family: "Teko", sans-serif; font-size: 1.7rem; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; margin: 0; }
+  .fill-count { font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; color: var(--ink-muted); }
+
+  .slot-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0.7rem; }
+
+  .slot-card { background: var(--surface); border: 1px solid var(--border); border-radius: 9px; padding: 0.85rem 0.95rem; display: flex; flex-direction: column; gap: 0.55rem; box-shadow: var(--shadow); min-height: 148px; }
+  .slot-card.open { background: transparent; border: 1.5px dashed var(--border); box-shadow: none; align-items: flex-start; justify-content: space-between; }
+  .slot-label { font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; font-weight: 600; color: var(--accent); letter-spacing: 0.05em; }
+  .slot-card.open .slot-label { color: var(--ink-faint); }
+  .open-tag { font-size: 0.85rem; color: var(--ink-faint); font-style: italic; }
+
+  .player-name { font-weight: 600; font-size: 1rem; line-height: 1.2; }
+  .player-meta { font-size: 0.76rem; color: var(--ink-muted); font-family: "IBM Plex Mono", monospace; }
+
+  .player-stats { display: flex; gap: 0.9rem; margin: 0; }
+  .player-stats div { display: flex; flex-direction: column; gap: 0.05rem; }
+  .player-stats dt { font-size: 0.65rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.05em; }
+  .player-stats dd { margin: 0; font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 0.95rem; }
+
+  /* ---------- Team pick (goals-against slot) ---------- */
+  .goal-card { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 9px; padding: 1.1rem 1.3rem; box-shadow: var(--shadow); display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+  .goal-card.open { border-left: 4px dashed var(--ink-faint); background: transparent; box-shadow: none; }
+  .goal-formula { font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; color: var(--ink-muted); }
+  .goal-stats { display: flex; gap: 1.4rem; }
+  .goal-stats div { display: flex; flex-direction: column; gap: 0.1rem; }
+  .goal-stats dt { font-size: 0.65rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.05em; }
+  .goal-stats dd { margin: 0; font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 1.1rem; }
+  .goal-stats dd.neg { color: var(--bad); }
+  .goal-stats dd.pos { color: var(--good); }
+
+  /* ---------- Archive banner ---------- */
+  .banner { background: var(--warm-soft); border: 1px solid var(--warm); border-radius: 9px; padding: 0.75rem 1rem; font-size: 0.85rem; line-height: 1.5; color: var(--ink); }
+  .banner strong { font-weight: 600; }
+
+  footer.note { font-size: 0.76rem; color: var(--ink-faint); border-top: 1px solid var(--border); padding-top: 1rem; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="masthead">
+    <div class="masthead-row">
+      <div>
+        <div class="eyebrow">2025&ndash;26 Season &middot; Archive &middot; 6-Team Fantasy League</div>
+        <h1>Lineup Card</h1>
+      </div>
+      <div class="updated">Final season, closed out April 16, 2026 &middot; <a href="dashboard-2025.html">Season dashboard &rarr;</a> &middot; <a href="index.html">2026&ndash;27 season &rarr;</a></div>
+    </div>
+    <div class="format-chips">
+      <span class="chip">Skaters &mdash; <strong>2&times;G + 1&times;A = Pts</strong></span>
+      <span class="chip">Team pick &mdash; <strong>&minus;1&times;GA + 10 per shutout</strong></span>
+      <span class="chip">Roster &mdash; <strong>8 F &middot; 3 D &middot; 1 Team</strong></span>
+    </div>
+  </header>
+
+  <div class="banner">
+    <strong>Archive.</strong> These are the six 2025&ndash;26 rosters, reconstructed from that season's tracking spreadsheet, with final stats refetched and verified against the NHL API. There's no pick-by-pick draft log for this season &mdash; only the finished rosters. One rule was different that year: goals against on the Team pick excluded empty-net goals, so its number isn't directly comparable to the 2026&ndash;27 Team pick score.
+  </div>
+
+  <nav class="team-tabs" id="teamTabs" aria-label="Select a team's roster"></nav>
+
+  <h2 class="team-heading" id="teamHeading">Drew&rsquo;s Roster</h2>
+
+  <section class="summary-bar">
+    <div class="summary-stat">
+      <span class="summary-label">Roster Filled</span>
+      <span class="summary-value num"><span id="sumFilled">12</span><span class="of">/12</span></span>
+      <span class="summary-open" id="sumOpen">0 F &middot; 0 D &middot; 0 Team open</span>
+    </div>
+    <div class="summary-stat">
+      <span class="summary-label">Season Goals</span>
+      <span class="summary-value num" id="sumGoals">0</span>
+    </div>
+    <div class="summary-stat">
+      <span class="summary-label">Season Assists</span>
+      <span class="summary-value num" id="sumAssists">0</span>
+    </div>
+    <div class="summary-stat">
+      <span class="summary-label">Season Fantasy Pts</span>
+      <span class="summary-value num" id="sumPoints">0</span>
+    </div>
+    <div class="summary-stat">
+      <span class="summary-label">Team Pick Pts</span>
+      <span class="summary-value num" id="sumGoalPts">&mdash;</span>
+      <span class="summary-open" id="sumGoalNote">no team picked yet</span>
+    </div>
+  </section>
+
+  <section class="roster-section">
+    <div class="section-head"><h2>Forwards</h2><span class="fill-count num" id="fCount">0 / 8 filled</span></div>
+    <div class="slot-grid forwards" id="forwardsGrid"></div>
+  </section>
+
+  <section class="roster-section">
+    <div class="section-head"><h2>Defense</h2><span class="fill-count num" id="dCount">0 / 3 filled</span></div>
+    <div class="slot-grid defense" id="defenseGrid"></div>
+  </section>
+
+  <section class="roster-section">
+    <div class="section-head"><h2>Team Pick</h2><span class="fill-count num" id="tCount">0 / 1 filled</span></div>
+    <div id="goalWrap"></div>
+  </section>
+
+  <footer class="note">
+    Skater stats are each player's full 2025&ndash;26 season and their 2024&ndash;25 season, fantasy points computed as 2 per goal + 1 per assist. Team pick scores on that team's goals against (deduction, excluding empty-net goals per that season's rule) plus a 10-point bonus per shutout. Switch teams above to see any manager's final roster.
+  </footer>
+
+</div>
+
+<script>
+  let TEAMS = [];
+
+  function byId(id) { return TEAMS.find(function (t) { return t.id === id; }); }
+  function fp(g, a) { return 2 * g + a; }
+  let activeTeam = 'you';
+
+  function fillCount(team) {
+    return [...team.roster.F, ...team.roster.D, ...team.roster.T].filter(Boolean).length;
+  }
+
+  function slotCardHTML(label, player) {
+    if (!player) {
+      return '<article class="slot-card open"><span class="slot-label">' + label + '</span><span class="open-tag">Open</span></article>';
+    }
+    return '' +
+      '<article class="slot-card">' +
+        '<span class="slot-label">' + label + '</span>' +
+        '<div>' +
+          '<div class="player-name">' + player.name + '</div>' +
+          '<div class="player-meta">' + player.teamAbbrev + ' &middot; ' + player.pos + ' &middot; Age ' + player.age + '</div>' +
+        '</div>' +
+        '<dl class="player-stats">' +
+          '<div><dt>' + player.recent.season + '</dt><dd class="num">' + fp(player.recent.g, player.recent.a) + ' pts</dd></div>' +
+          '<div><dt>' + player.prior.season + '</dt><dd class="num">' + fp(player.prior.g, player.prior.a) + ' pts</dd></div>' +
+        '</dl>' +
+      '</article>';
+  }
+
+  function goalCardHTML(pick) {
+    if (!pick) {
+      return '' +
+        '<div class="goal-card open">' +
+          '<div>' +
+            '<span class="slot-label">T1</span>' +
+            '<div class="open-tag" style="margin-top:0.3rem;">Open &mdash; pick an NHL team, not a goalie</div>' +
+          '</div>' +
+          '<div class="goal-formula">Scores as &minus;1&times;GA + 10 per shutout</div>' +
+        '</div>';
+    }
+    const total = -pick.recent.ga + 10 * pick.recent.so;
+    return '' +
+      '<div class="goal-card">' +
+        '<div>' +
+          '<span class="slot-label">T1</span>' +
+          '<div class="player-name" style="margin-top:0.3rem;">' + pick.name + '</div>' +
+          '<div class="player-meta">' + pick.teamAbbrev + '</div>' +
+        '</div>' +
+        '<dl class="goal-stats">' +
+          '<div><dt>Goals Against</dt><dd class="num neg">&minus;' + pick.recent.ga + '</dd></div>' +
+          '<div><dt>Shutouts</dt><dd class="num pos">+' + (10 * pick.recent.so) + '</dd></div>' +
+          '<div><dt>Total</dt><dd class="num">' + (total >= 0 ? '+' : '') + total + '</dd></div>' +
+        '</dl>' +
+      '</div>';
+  }
+
+  function renderTabs() {
+    const wrap = document.getElementById('teamTabs');
+    wrap.innerHTML = TEAMS.map(function (t) {
+      const active = t.id === activeTeam;
+      return '<button class="team-tab' + (active ? ' active' : '') + '" data-team="' + t.id + '" aria-pressed="' + active + '">' +
+        t.name + ' <span class="fill-badge num">' + fillCount(t) + '/12</span></button>';
+    }).join('');
+    wrap.querySelectorAll('.team-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        activeTeam = btn.dataset.team;
+        renderAll();
+      });
+    });
+  }
+
+  function renderSummary(team) {
+    const skaters = [...team.roster.F, ...team.roster.D].filter(Boolean);
+    const goals = skaters.reduce(function (s, p) { return s + p.recent.g; }, 0);
+    const assists = skaters.reduce(function (s, p) { return s + p.recent.a; }, 0);
+    const pts = skaters.reduce(function (s, p) { return s + fp(p.recent.g, p.recent.a); }, 0);
+    const openF = 8 - team.roster.F.filter(Boolean).length;
+    const openD = 3 - team.roster.D.filter(Boolean).length;
+    const openT = 1 - team.roster.T.filter(Boolean).length;
+
+    document.getElementById('sumFilled').textContent = fillCount(team);
+    document.getElementById('sumOpen').textContent = openF + ' F · ' + openD + ' D · ' + openT + ' Team open';
+    document.getElementById('sumGoals').textContent = goals;
+    document.getElementById('sumAssists').textContent = assists;
+    document.getElementById('sumPoints').textContent = pts;
+
+    const g = team.roster.T[0];
+    document.getElementById('sumGoalPts').textContent = g ? (function () { const t = -g.recent.ga + 10 * g.recent.so; return (t >= 0 ? '+' : '') + t; })() : '—';
+    document.getElementById('sumGoalNote').textContent = g ? g.name : 'no team picked yet';
+
+    document.getElementById('teamHeading').textContent = team.name + '’s Roster';
+  }
+
+  function renderRoster(team) {
+    document.getElementById('forwardsGrid').innerHTML = team.roster.F.map(function (p, i) { return slotCardHTML('F' + (i + 1), p); }).join('');
+    document.getElementById('defenseGrid').innerHTML = team.roster.D.map(function (p, i) { return slotCardHTML('D' + (i + 1), p); }).join('');
+    document.getElementById('goalWrap').innerHTML = goalCardHTML(team.roster.T[0]);
+
+    document.getElementById('fCount').textContent = team.roster.F.filter(Boolean).length + ' / 8 filled';
+    document.getElementById('dCount').textContent = team.roster.D.filter(Boolean).length + ' / 3 filled';
+    document.getElementById('tCount').textContent = team.roster.T.filter(Boolean).length + ' / 1 filled';
+  }
+
+  function renderAll() {
+    renderTabs();
+    const team = TEAMS.find(function (t) { return t.id === activeTeam; });
+    renderSummary(team);
+    renderRoster(team);
+  }
+
+  fetch('data/rosters-2025.json', { cache: 'no-cache' })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (data) { TEAMS = data.teams; renderAll(); })
+    .catch(function () {
+      document.getElementById('teamHeading').textContent = 'Could not load rosters-2025.json';
+    });
+</script>
+</body>
+</html>
