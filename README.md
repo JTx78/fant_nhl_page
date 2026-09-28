@@ -20,7 +20,9 @@ keep the stats current.
 
 - 6 managers, 12 roster slots each: 8 Forwards, 3 Defense, 1 Team pick (an NHL team, not a player).
 - Skaters score **2 × goals + 1 × assist**.
-- The Team pick scores **−1 × goals against + 10 × shutouts** for that NHL team.
+- The Team pick scores **−1 × real goals against + 10 × shutouts** for that NHL team.
+  "Real" excludes empty-net goals — those are shown as a separate, non-scoring EN count.
+  A goal still counts fully for the *skater* who scored it, empty-net or not.
 - No in-season trades, except a season-ending injury: the injured player's points are
   wiped, and the replacement's *full-season* points count from game one — not just from
   when they were added. This is why the data model stores per-game history rather than
@@ -51,11 +53,13 @@ Each game record is intentionally broad — goals, assists, shots, PIM, TOI, pow
 shorthanded/game-winning/OT goals, plus-minus, shifts, home/away, opponent — so a future
 dashboard view doesn't require going back and re-fetching history.
 
-**`teamdata.json`** holds one array of `[date, goals_against, shutout]` triples per NHL
-team abbreviation. Goals against is schedule-level (the opponent's final score, including
-empty-net and shootout-winning goals) — fast and verified exactly against league standings,
-but *not* the same rule the 2025-26 season actually used (which excluded empty-net goals).
-The archive's dashboard corrects for this: see "Known quirks" below.
+**`teamdata.json`** holds one array of per-game records per NHL team abbreviation:
+`{id, date, ga, en, so}`. `id` is the NHL game ID (also the incremental-fetch cursor —
+see below); `ga` is real goals against, already excluding empty-net goals; `en` is the raw
+empty-net-goal count for that game (shown on the site, never scored); `so` is 1 if `ga`
+was 0. The 2025-26 archive still uses the older `[date, ga, so]` triple, computed by the
+schedule-level (pre-empty-net-exclusion) method — see "Known quirks" below for how that's
+reconciled.
 
 Both dashboards' JS fetches `rosters.json` plus the two data files and merges them into the
 `{season, asOf, players, teams}` shape that `dashboard-calc.js` expects. That file is pure
@@ -66,12 +70,22 @@ data-crunching with no DOM access, shared by both dashboards, and testable direc
 ```fish
 python3 scripts/fetch_stats.py --out-dir data/2026-2027
 python3 scripts/fetch_stats.py --season 20252026 --out-dir data/2026-2027 --prefix sample-
+python3 scripts/fetch_stats.py --out-dir data/2026-2027 --rebuild   # force a full refetch
 ```
 
 Standard library only, no dependencies. `--season` defaults to the current season
-(2026-27). It refuses to overwrite a file with fewer games than it already has for any
-player or team (a defense against a partial/failed fetch silently erasing history), and
-writes atomically (temp file + rename) so a crash mid-run can't corrupt the output.
+(2026-27). Team data is fetched incrementally: each completed game's play-by-play is only
+requested once, ever — a normal run only fetches whatever's finished since the last one,
+by comparing against the game IDs already in the existing `teamdata.json`. `--rebuild`
+ignores what's on disk and refetches every game from scratch (use it if a past game's data
+ever needs correcting; the NHL amending a "FINAL" boxscore after the fact is rare, but a
+previously-recorded game is never automatically re-verified otherwise). Skaters (via the
+game-log endpoint) are always a full refetch — one API call returns a player's whole
+season regardless, so there's no per-game cost to save, and it means a stat correction is
+picked up automatically. The script also refuses to overwrite a file with fewer games than
+it already has for any player or team (a defense against a partial/failed fetch silently
+erasing history), and writes atomically (temp file + rename) so a crash mid-run can't
+corrupt the output.
 
 ## Nightly pipeline
 
@@ -107,11 +121,13 @@ python3 -m http.server 8000
   empty-net goals per that year's rule. `dashboard-2025.html` reconciles the two: it shifts
   each team's cumulative chart line by a constant so the final total is exact, while the
   day-to-day shape is an approximation. This is disclosed in that page's own footer.
-- **Whether 2026-27 should also exclude empty-net goals is an open, pending decision.**
-  Doing it for real needs per-game play-by-play data (NHL API doesn't expose it at the
-  schedule level), which means rewriting `team_log()` in `fetch_stats.py` to make roughly
-  one API call per completed game per Team pick (~500/season) instead of one call per team
-  for the whole season. Scoped, not started.
+- **2026-27's empty-net exclusion needed real per-game data**, since the NHL doesn't expose
+  it at the schedule level. Each game's `/gamecenter/{id}/landing` response tags every goal
+  with `goalModifier: "empty-net"` or `"none"` — including shootout-winning goals, which
+  appear in the same list under a `periodType: "SO"` entry and are never empty-net, so no
+  special-casing was needed there. `team_log()` fetches this per completed game, cached
+  across teams that happen to share a game, and merges incrementally (see above) rather
+  than re-fetching a full season every run.
 - **Git is the site owner's, not an assistant's, to drive.** Nothing here should ever be
   committed, pushed, or merged by an automated assistant without the repo owner running
   those commands themselves.

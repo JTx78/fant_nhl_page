@@ -9,14 +9,26 @@ Skaters: one record per regular-season game (goals, assists, shots, PIM, TOI, po
 shorthanded/game-winning/OT goals, plus/minus, shifts, home/away, opponent) -- kept broad
 so a future dashboard view doesn't need a backfill.
 
-Teams: one record per regular-season game -- {date, ga, en, so}. ga is the opponent's
+Teams: one record per regular-season game -- {id, date, ga, en, so}. ga is the opponent's
 real goals against (EXCLUDING empty-net goals -- these don't count against the Team
 pick's score, per league rule), en is the raw empty-net-goal count (shown, not scored),
 so is 1 if ga == 0. Sourced from each game's /gamecenter/{id}/landing goal list, which
 tags every goal with goalModifier "empty-net" or "none" (shootout-winning goals appear
 here too, under a periodType "SO" entry, and are never empty-net -- no special-casing
-needed). One request per completed game per tracked team, deduplicated by game ID when
-two tracked teams play each other -- a full-season backfill is ~500 requests.
+needed).
+
+Team data is fetched INCREMENTALLY: team_log() reads whatever's already in the existing
+output file and only requests landing data for games not already recorded there (matched
+by game ID, one schedule call still covers the whole season -- that part's cheap). A full
+backfill is ~500 landing requests; a normal nightly run is only the handful of games that
+finished since the last one. Pass --rebuild to ignore existing data and refetch everything
+from scratch (e.g. if a past game's data needs correcting). A previously recorded game is
+never re-verified once written -- if the NHL amends a "FINAL" boxscore after the fact
+(rare), --rebuild is how you'd pick that up.
+
+Skaters (player_log) are NOT incremental -- the game-log endpoint returns a player's whole
+season in one call regardless, so there's no per-game cost to amortize, and a full refetch
+every run means a late correction to a skater's stat line is picked up automatically.
 
 Any failed request aborts the run without touching either output file.
 """
@@ -103,17 +115,22 @@ def game_goals(game_id):
     return _game_goals_cache[game_id]
 
 
-def team_log(abbr, season):
+def team_log(abbr, season, existing=None):
+    """existing: this team's rows already on disk (from the prior run's output). Games
+    whose ID is already present are kept as-is and never re-fetched."""
+    known_ids = {r["id"] for r in (existing or [])}
     j = get("/club-schedule-season/%s/%d" % (abbr, season))
-    rows = []
+    rows = list(existing or [])
     for g in (j or {}).get("games", []):
         if g["gameType"] != 2 or g["gameState"] not in DONE_STATES:
+            continue
+        if g["id"] in known_ids:
             continue
         opp = g["awayTeam"] if g["homeTeam"]["abbrev"] == abbr else g["homeTeam"]
         opp_goals = [x for x in game_goals(g["id"]) if x["team"] == opp["abbrev"]]
         en = sum(1 for x in opp_goals if x["empty_net"])
         ga = len(opp_goals) - en
-        rows.append({"date": g["gameDate"], "ga": ga, "en": en, "so": 1 if ga == 0 else 0})
+        rows.append({"id": g["id"], "date": g["gameDate"], "ga": ga, "en": en, "so": 1 if ga == 0 else 0})
     return sorted(rows, key=lambda r: r["date"])
 
 
@@ -135,6 +152,13 @@ def write_json(path, obj, old_rows_by_key=None):
     os.replace(tmp, path)
 
 
+def load_existing(path, key):
+    if not os.path.exists(path):
+        return {}
+    with open(path) as f:
+        return json.load(f).get(key, {})
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--season", type=int, default=20262027)
@@ -143,6 +167,8 @@ def main():
     ap.add_argument("--prefix", default="",
                      help="filename prefix, e.g. 'sample-' for sample-playerdata.json / sample-teamdata.json")
     ap.add_argument("--rosters", help="defaults to <out-dir>/rosters.json")
+    ap.add_argument("--rebuild", action="store_true",
+                     help="ignore existing team data and refetch every completed game from scratch")
     args = ap.parse_args()
     rosters_path = args.rosters or os.path.join(args.out_dir, "rosters.json")
 
@@ -150,15 +176,17 @@ def main():
         rosters = json.load(f)
     pids, abbrs = roster_targets(rosters)
 
+    team_path = os.path.join(args.out_dir, args.prefix + "teamdata.json")
+    existing_teams = {} if args.rebuild else load_existing(team_path, "teams")
+
     players = {str(p): player_log(p, args.season) for p in pids}
-    teams = {a: team_log(a, args.season) for a in abbrs}
+    teams = {a: team_log(a, args.season, existing=existing_teams.get(a, [])) for a in abbrs}
 
     dates = [r["date"] for rows in players.values() for r in rows]
     dates += [r["date"] for rows in teams.values() for r in rows]
     as_of = max(dates) if dates else None
 
     player_path = os.path.join(args.out_dir, args.prefix + "playerdata.json")
-    team_path = os.path.join(args.out_dir, args.prefix + "teamdata.json")
     write_json(player_path, {"season": args.season, "asOf": as_of, "players": players}, old_rows_by_key="players")
     write_json(team_path, {"season": args.season, "asOf": as_of, "teams": teams}, old_rows_by_key="teams")
     print("season %d: %d players -> %s, %d teams -> %s, asOf %s"
