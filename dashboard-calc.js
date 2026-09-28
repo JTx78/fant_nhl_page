@@ -9,9 +9,15 @@
   }
 
   // rosters: <season>/rosters.json
-  // stats: merged from <season>/playerdata.json + teamdata.json — players: id -> [{date,g,a,...}], teams: abbr -> [[date,ga,so]]
-  // (team records stay a plain triple; the empty-net-goals question is a separate,
-  // still-open change to how team_log() sources GA, not a schema shape issue)
+  // stats: merged from <season>/playerdata.json + teamdata.json — players: id -> [{date,g,a,...}]
+  // teams: abbr -> rows, either the current {date,ga,en,so} object (ga excludes empty-net
+  // goals, en is the raw empty-net count, shown but not scored) or the older [date,ga,so]
+  // triple kept by the 2025-26 archive (ga there is full GA, en implicitly 0 — that
+  // season's real numbers come from its own rosters.json override, not this file).
+  function normTeamRow(r) {
+    return Array.isArray(r) ? { date: r[0], ga: r[1], en: 0, so: r[2] } : r;
+  }
+
   function buildModel(rosters, stats) {
     const dateSet = new Set();
     const players = [];
@@ -19,7 +25,7 @@
     const teams = rosters.teams.map(function (t) {
       const daily = {}; // date -> { pts, skPts, skGP }
       function day(d) { dateSet.add(d); return daily[d] || (daily[d] = { pts: 0, skPts: 0, skGP: 0 }); }
-      const m = { id: t.id, name: t.name, f: 0, d: 0, t: 0, ga: 0, so: 0, filled: 0, skGP: 0, skFp: 0 };
+      const m = { id: t.id, name: t.name, f: 0, d: 0, t: 0, ga: 0, en: 0, so: 0, filled: 0, skGP: 0, skFp: 0 };
 
       ['F', 'D'].forEach(function (pos) {
         t.roster[pos].forEach(function (p) {
@@ -43,10 +49,11 @@
       t.roster.T.forEach(function (p) {
         if (!p) return;
         m.filled++;
-        ((stats.teams && stats.teams[p.teamAbbrev]) || []).forEach(function (r) {
-          const pts = -r[1] + 10 * r[2];
-          day(r[0]).pts += pts;
-          m.t += pts; m.ga += r[1]; m.so += r[2];
+        ((stats.teams && stats.teams[p.teamAbbrev]) || []).forEach(function (raw) {
+          const r = normTeamRow(raw);
+          const pts = -r.ga + 10 * r.so;
+          day(r.date).pts += pts;
+          m.t += pts; m.ga += r.ga; m.en += r.en; m.so += r.so;
         });
       });
 

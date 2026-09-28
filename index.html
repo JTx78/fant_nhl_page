@@ -203,7 +203,7 @@
     </div>
     <div class="format-chips">
       <span class="chip">Skaters &mdash; <strong>2&times;G + 1&times;A = Pts</strong></span>
-      <span class="chip">Team pick &mdash; <strong>&minus;1&times;GA + 10 per shutout</strong></span>
+      <span class="chip">Team pick &mdash; <strong>&minus;1&times;GA (excl. EN) + 10 per shutout</strong></span>
       <span class="chip">Roster &mdash; <strong>8 F &middot; 3 D &middot; 1 Team</strong></span>
     </div>
   </header>
@@ -258,7 +258,7 @@
   </section>
 
   <footer class="note">
-    Skater stats are each player's most recent two completed NHL regular seasons, fantasy points computed as 2 per goal + 1 per assist. Team pick scores on that team's goals against (deduction) plus a 10-point bonus per shutout. Switch teams above to see any manager's roster, including yours.
+    Skater stats are each player's most recent two completed NHL regular seasons, fantasy points computed as 2 per goal + 1 per assist (empty-net goals count fully for the skater). Team pick scores on that team's real goals against, excluding empty-net goals (deduction), plus a 10-point bonus per shutout; Empty Net shows the raw count for reference only &mdash; it isn't scored. Switch teams above to see any manager's roster, including yours.
   </footer>
 
 </div>
@@ -301,10 +301,13 @@
             '<span class="slot-label">T1</span>' +
             '<div class="open-tag" style="margin-top:0.3rem;">Open &mdash; pick an NHL team, not a goalie</div>' +
           '</div>' +
-          '<div class="goal-formula">Scores as &minus;1&times;GA + 10 per shutout</div>' +
+          '<div class="goal-formula">Scores as &minus;1&times;GA (excl. EN) + 10 per shutout</div>' +
         '</div>';
     }
     const total = -pick.recent.ga + 10 * pick.recent.so;
+    const enStat = typeof pick.recent.en === 'number'
+      ? '<div><dt>Empty Net</dt><dd class="num">' + pick.recent.en + '</dd></div>'
+      : '';
     return '' +
       '<div class="goal-card">' +
         '<div>' +
@@ -315,6 +318,7 @@
         '<dl class="goal-stats">' +
           '<div><dt>Goals Against</dt><dd class="num neg">&minus;' + pick.recent.ga + '</dd></div>' +
           '<div><dt>Shutouts</dt><dd class="num pos">+' + (10 * pick.recent.so) + '</dd></div>' +
+          enStat +
           '<div><dt>Total</dt><dd class="num">' + (total >= 0 ? '+' : '') + total + '</dd></div>' +
         '</dl>' +
       '</div>';

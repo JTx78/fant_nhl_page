@@ -201,7 +201,8 @@
       "teamAbbrev": "COL",
       "recent": {
        "season": "'25-26",
-       "ga": 203,
+       "ga": 190,
+       "en": 13,
        "so": 8
       }
      }
@@ -410,7 +411,8 @@
       "teamAbbrev": "BOS",
       "recent": {
        "season": "'25-26",
-       "ga": 250,
+       "ga": 239,
+       "en": 11,
        "so": 3
       }
      }
@@ -619,7 +621,8 @@
       "teamAbbrev": "WSH",
       "recent": {
        "season": "'25-26",
-       "ga": 244,
+       "ga": 227,
+       "en": 17,
        "so": 5
       }
      }
@@ -828,7 +831,8 @@
       "teamAbbrev": "DAL",
       "recent": {
        "season": "'25-26",
-       "ga": 226,
+       "ga": 213,
+       "en": 13,
        "so": 5
       }
      }
@@ -1037,7 +1041,8 @@
       "teamAbbrev": "MIN",
       "recent": {
        "season": "'25-26",
-       "ga": 240,
+       "ga": 226,
+       "en": 14,
        "so": 8
       }
      }
@@ -1246,7 +1251,8 @@
       "teamAbbrev": "TBL",
       "recent": {
        "season": "'25-26",
-       "ga": 231,
+       "ga": 216,
+       "en": 15,
        "so": 2
       }
      }

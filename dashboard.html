@@ -254,7 +254,7 @@
   </section>
 
   <footer class="note">
-    Skaters score 2 per goal + 1 per assist. Each team pick scores its goals against as a deduction plus 10 per shutout, so that slot is usually negative. Skater pts/GP is a roster's skater points divided by the games those skaters played; pts/night is total points divided by the game nights so far, so injuries and missed games count against it. A game night is any date on which a rostered player or team pick played. Hot &amp; cold covers rostered skaters who played in the window.
+    Skaters score 2 per goal + 1 per assist (empty-net goals count fully for the skater). Each team pick scores its real goals against (excluding empty-net goals) as a deduction plus 10 per shutout, so that slot is usually negative &mdash; the standings table's EN figure is the raw empty-net-goal count against that team, shown for reference but not scored. Skater pts/GP is a roster's skater points divided by the games those skaters played; pts/night is total points divided by the game nights so far, so injuries and missed games count against it. A game night is any date on which a rostered player or team pick played. Hot &amp; cold covers rostered skaters who played in the window.
   </footer>
 
 </div>
@@ -326,7 +326,7 @@
         '<td class="mgr"><div class="mgr-cell"><span class="swatch" style="background:var(' + TEAM_COLOR_VAR[t.id] + ')"></span><div><span class="mgr-name">' + t.name + '</span>' + open + '</div></div></td>' +
         '<td class="num">' + t.f + '</td>' +
         '<td class="num">' + t.d + '</td>' +
-        '<td class="num ' + tone(t.t) + '">' + (t.filled && (t.ga || t.so) ? signed(t.t) + '<span class="sub">' + t.ga + ' GA · ' + t.so + ' SO</span>' : '—') + '</td>' +
+        '<td class="num ' + tone(t.t) + '">' + (t.filled && (t.ga || t.so) ? signed(t.t) + '<span class="sub">' + t.ga + ' GA · ' + t.so + ' SO' + (t.en ? ' · ' + t.en + ' EN' : '') + '</span>' : '—') + '</td>' +
         '<td class="total-cell"><span class="total-val ' + tone(t.total) + '">' + t.total + '</span><div class="bar"><i style="width:' + w + '%;background:var(' + TEAM_COLOR_VAR[t.id] + ')"></i></div></td>' +
         '<td class="num ' + (i === 0 ? '' : 'neg') + '">' + behind + '</td>' +
         '<td class="num">' + fmt2(t.perGame) + '</td>' +

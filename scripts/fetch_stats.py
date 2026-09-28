@@ -9,10 +9,14 @@ Skaters: one record per regular-season game (goals, assists, shots, PIM, TOI, po
 shorthanded/game-winning/OT goals, plus/minus, shifts, home/away, opponent) -- kept broad
 so a future dashboard view doesn't need a backfill.
 
-Teams: [date, goals_against, shutout] per regular-season game (GA = opponent's final
-score, matching league standings; shutout = opponent scored 0). Team GA is schedule-level
-and does not exclude empty-net goals -- that would need per-game play-by-play, a separate
-and not-yet-built change to team_log(), not a schema question.
+Teams: one record per regular-season game -- {date, ga, en, so}. ga is the opponent's
+real goals against (EXCLUDING empty-net goals -- these don't count against the Team
+pick's score, per league rule), en is the raw empty-net-goal count (shown, not scored),
+so is 1 if ga == 0. Sourced from each game's /gamecenter/{id}/landing goal list, which
+tags every goal with goalModifier "empty-net" or "none" (shootout-winning goals appear
+here too, under a periodType "SO" entry, and are never empty-net -- no special-casing
+needed). One request per completed game per tracked team, deduplicated by game ID when
+two tracked teams play each other -- a full-season backfill is ~500 requests.
 
 Any failed request aborts the run without touching either output file.
 """
@@ -80,6 +84,25 @@ def player_log(pid, season):
     return sorted(rows, key=lambda r: r["date"])
 
 
+_game_goals_cache = {}
+
+
+def game_goals(game_id):
+    """List of {"team": abbrev, "empty_net": bool} for every goal in a game, cached by ID
+    since two tracked teams occasionally share a game."""
+    if game_id not in _game_goals_cache:
+        j = get("/gamecenter/%d/landing" % game_id)
+        goals = []
+        for period in (j or {}).get("summary", {}).get("scoring", []):
+            for g in period.get("goals", []):
+                goals.append({
+                    "team": g["teamAbbrev"]["default"],
+                    "empty_net": g.get("goalModifier") == "empty-net",
+                })
+        _game_goals_cache[game_id] = goals
+    return _game_goals_cache[game_id]
+
+
 def team_log(abbr, season):
     j = get("/club-schedule-season/%s/%d" % (abbr, season))
     rows = []
@@ -87,8 +110,11 @@ def team_log(abbr, season):
         if g["gameType"] != 2 or g["gameState"] not in DONE_STATES:
             continue
         opp = g["awayTeam"] if g["homeTeam"]["abbrev"] == abbr else g["homeTeam"]
-        rows.append([g["gameDate"], opp["score"], 1 if opp["score"] == 0 else 0])
-    return sorted(rows)
+        opp_goals = [x for x in game_goals(g["id"]) if x["team"] == opp["abbrev"]]
+        en = sum(1 for x in opp_goals if x["empty_net"])
+        ga = len(opp_goals) - en
+        rows.append({"date": g["gameDate"], "ga": ga, "en": en, "so": 1 if ga == 0 else 0})
+    return sorted(rows, key=lambda r: r["date"])
 
 
 def write_json(path, obj, old_rows_by_key=None):
@@ -128,7 +154,7 @@ def main():
     teams = {a: team_log(a, args.season) for a in abbrs}
 
     dates = [r["date"] for rows in players.values() for r in rows]
-    dates += [r[0] for rows in teams.values() for r in rows]
+    dates += [r["date"] for rows in teams.values() for r in rows]
     as_of = max(dates) if dates else None
 
     player_path = os.path.join(args.out_dir, args.prefix + "playerdata.json")
