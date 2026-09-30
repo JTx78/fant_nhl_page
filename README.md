@@ -67,7 +67,7 @@ data-crunching with no DOM access, shared by both dashboards, and testable direc
 
 ## Setup
 
-`scripts/fetch_stats.py` is standard library only. `scripts/init_draft.py` needs `click` and
+`scripts/fetch_stats.py` is standard library only. `scripts/draft.py` needs `click` and
 `structlog`:
 
 ```fish
@@ -100,10 +100,14 @@ corrupt the output.
 
 ## Starting a new draft
 
+`scripts/draft.py` is a `draft` CLI group — `init` creates a new line card, and more
+subcommands (recording a pick, etc.) will join it as the same tool rather than as separate
+scripts, since they all read and write the same `rosters.json`.
+
 ```fish
-python3 scripts/init_draft.py Drew Mike Matt Travis James Mac --season 2027-2028
-python3 scripts/init_draft.py Drew Mike Matt Travis James Mac --season 27-28   # same result
-python3 scripts/init_draft.py Drew Mike Matt Travis James Mac --season 2027-2028 --force
+python3 scripts/draft.py init Drew Mike Matt Travis James Mac --season 2027-2028
+python3 scripts/draft.py init Drew Mike Matt Travis James Mac --season 27-28   # same result
+python3 scripts/draft.py init Drew Mike Matt Travis James Mac --season 2027-2028 --force
 ```
 
 Writes a blank line card to `data/<start-year>-<start-year + 1>/rosters.json` — one team per

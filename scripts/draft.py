@@ -1,4 +1,4 @@
-"""Create a blank line card (rosters.json) for a new fantasy draft season."""
+"""CLI for managing a fantasy draft's line card (rosters.json): create it, then record picks."""
 
 import json
 import re
@@ -48,7 +48,12 @@ def build_blank_line_card(drafter_names: tuple[str, ...]) -> dict:
     return {"teams": teams, "draftLog": []}
 
 
-@click.command()
+@click.group()
+def draft() -> None:
+    """Manage a fantasy draft's line card: create it, then record picks."""
+
+
+@draft.command("init")
 @click.argument("drafter_names", nargs=-1, required=True)
 @click.option("--season", required=True, help="Season to cover: 2026, 26-27, or 2026-2027.")
 @click.option(
@@ -69,7 +74,7 @@ def build_blank_line_card(drafter_names: tuple[str, ...]) -> dict:
     is_flag=True,
     help="Overwrite the output file if it already exists.",
 )
-def main(
+def init_command(
     drafter_names: tuple[str, ...],
     season: str,
     out_file: str,
@@ -91,4 +96,4 @@ def main(
 
 
 if __name__ == "__main__":
-    main()
+    draft()
