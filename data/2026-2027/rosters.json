@@ -21,9 +21,231 @@
        "g": 0,
        "a": 0
       }
+     },
+     {
+      "playerId": 8477956,
+      "name": "David Pastrnak",
+      "teamAbbrev": "BOS",
+      "pos": "RW",
+      "age": 30,
+      "recent": {
+       "season": "'25-26",
+       "g": 29,
+       "a": 71
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 43,
+       "a": 63
+      }
+     },
+     {
+      "playerId": 8484801,
+      "name": "Macklin Celebrini",
+      "teamAbbrev": "SJS",
+      "pos": "C",
+      "age": 20,
+      "recent": {
+       "season": "'25-26",
+       "g": 45,
+       "a": 70
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 25,
+       "a": 38
+      }
+     },
+     {
+      "playerId": 8478420,
+      "name": "Mikko Rantanen",
+      "teamAbbrev": "DAL",
+      "pos": "RW",
+      "age": 29,
+      "recent": {
+       "season": "'25-26",
+       "g": 22,
+       "a": 55
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 32,
+       "a": 56
+      }
+     },
+     {
+      "playerId": 8477933,
+      "name": "Sam Reinhart",
+      "teamAbbrev": "FLA",
+      "pos": "C",
+      "age": 30,
+      "recent": {
+       "season": "'25-26",
+       "g": 29,
+       "a": 32
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 39,
+       "a": 42
+      }
+     },
+     {
+      "playerId": 8478427,
+      "name": "Sebastian Aho",
+      "teamAbbrev": "CAR",
+      "pos": "C",
+      "age": 28,
+      "recent": {
+       "season": "'25-26",
+       "g": 27,
+       "a": 53
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 29,
+       "a": 45
+      }
+     },
+     {
+      "playerId": 8476468,
+      "name": "Mika Zibanejad",
+      "teamAbbrev": "NYR",
+      "pos": "C",
+      "age": 33,
+      "recent": {
+       "season": "'25-26",
+       "g": 17,
+       "a": 36
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 20,
+       "a": 42
+      }
+     },
+     {
+      "playerId": 8480036,
+      "name": "JJ Peterka",
+      "teamAbbrev": "UTA",
+      "pos": "RW",
+      "age": 24,
+      "recent": {
+       "season": "'25-26",
+       "g": 0,
+       "a": 0
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 27,
+       "a": 41
+      }
+     },
+     {
+      "playerId": 8478403,
+      "name": "Jack Eichel",
+      "teamAbbrev": "VGK",
+      "pos": "C",
+      "age": 29,
+      "recent": {
+       "season": "'25-26",
+       "g": 27,
+       "a": 63
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 28,
+       "a": 66
+      }
+     },
+     {
+      "playerId": 8475913,
+      "name": "Mark Stone",
+      "teamAbbrev": "VGK",
+      "pos": "RW",
+      "age": 33,
+      "recent": {
+       "season": "'25-26",
+       "g": 28,
+       "a": 45
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 19,
+       "a": 48
+      }
+     },
+     {
+      "playerId": 8478483,
+      "name": "Mitch Marner",
+      "teamAbbrev": "VGK",
+      "pos": "RW",
+      "age": 28,
+      "recent": {
+       "season": "'25-26",
+       "g": 24,
+       "a": 56
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 27,
+       "a": 75
+      }
+     },
+     {
+      "playerId": 8478414,
+      "name": "Morgan Geekie",
+      "teamAbbrev": "BOS",
+      "pos": "C",
+      "age": 28,
+      "recent": {
+       "season": "'25-26",
+       "g": 0,
+       "a": 0
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 33,
+       "a": 24
+      }
      }
     ],
-    "D": [],
+    "D": [
+     {
+      "playerId": 8480069,
+      "name": "Cale Makar",
+      "teamAbbrev": "COL",
+      "pos": "D",
+      "age": 27,
+      "recent": {
+       "season": "'25-26",
+       "g": 20,
+       "a": 59
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 30,
+       "a": 62
+      }
+     },
+     {
+      "playerId": 8479323,
+      "name": "Adam Fox",
+      "teamAbbrev": "NYR",
+      "pos": "D",
+      "age": 28,
+      "recent": {
+       "season": "'25-26",
+       "g": 9,
+       "a": 44
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 10,
+       "a": 51
+      }
+     }
+    ],
     "T": []
    },
    "replaced": []
@@ -32,8 +254,231 @@
    "id": "james",
    "name": "James",
    "roster": {
-    "F": [],
-    "D": [],
+    "F": [
+     {
+      "playerId": 8477934,
+      "name": "Leon Draisaitl",
+      "teamAbbrev": "EDM",
+      "pos": "C",
+      "age": 30,
+      "recent": {
+       "season": "'25-26",
+       "g": 35,
+       "a": 62
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 52,
+       "a": 54
+      }
+     },
+     {
+      "playerId": 8477492,
+      "name": "Nathan MacKinnon",
+      "teamAbbrev": "COL",
+      "pos": "C",
+      "age": 30,
+      "recent": {
+       "season": "'25-26",
+       "g": 53,
+       "a": 74
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 32,
+       "a": 84
+      }
+     },
+     {
+      "playerId": 8479318,
+      "name": "Auston Matthews",
+      "teamAbbrev": "TOR",
+      "pos": "C",
+      "age": 28,
+      "recent": {
+       "season": "'25-26",
+       "g": 27,
+       "a": 26
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 33,
+       "a": 45
+      }
+     },
+     {
+      "playerId": 8476453,
+      "name": "Nikita Kucherov",
+      "teamAbbrev": "TBL",
+      "pos": "RW",
+      "age": 32,
+      "recent": {
+       "season": "'25-26",
+       "g": 44,
+       "a": 86
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 37,
+       "a": 84
+      }
+     },
+     {
+      "playerId": 8480027,
+      "name": "Jason Robertson",
+      "teamAbbrev": "DAL",
+      "pos": "LW",
+      "age": 26,
+      "recent": {
+       "season": "'25-26",
+       "g": 45,
+       "a": 51
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 35,
+       "a": 45
+      }
+     },
+     {
+      "playerId": 8478864,
+      "name": "Kirill Kaprizov",
+      "teamAbbrev": "MIN",
+      "pos": "LW",
+      "age": 28,
+      "recent": {
+       "season": "'25-26",
+       "g": 45,
+       "a": 44
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 25,
+       "a": 31
+      }
+     },
+     {
+      "playerId": 8477939,
+      "name": "William Nylander",
+      "teamAbbrev": "TOR",
+      "pos": "RW",
+      "age": 29,
+      "recent": {
+       "season": "'25-26",
+       "g": 30,
+       "a": 49
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 45,
+       "a": 39
+      }
+     },
+     {
+      "playerId": 8478398,
+      "name": "Kyle Connor",
+      "teamAbbrev": "WPG",
+      "pos": "LW",
+      "age": 29,
+      "recent": {
+       "season": "'25-26",
+       "g": 39,
+       "a": 53
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 41,
+       "a": 56
+      }
+     },
+     {
+      "playerId": 8476460,
+      "name": "Mark Scheifele",
+      "teamAbbrev": "WPG",
+      "pos": "C",
+      "age": 33,
+      "recent": {
+       "season": "'25-26",
+       "g": 36,
+       "a": 67
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 39,
+       "a": 48
+      }
+     },
+     {
+      "playerId": 8482740,
+      "name": "Wyatt Johnston",
+      "teamAbbrev": "DAL",
+      "pos": "C",
+      "age": 22,
+      "recent": {
+       "season": "'25-26",
+       "g": 45,
+       "a": 41
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 33,
+       "a": 38
+      }
+     }
+    ],
+    "D": [
+     {
+      "playerId": 8480800,
+      "name": "Quinn Hughes",
+      "teamAbbrev": "MIN",
+      "pos": "D",
+      "age": 26,
+      "recent": {
+       "season": "'25-26",
+       "g": 7,
+       "a": 69
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 16,
+       "a": 60
+      }
+     },
+     {
+      "playerId": 8480803,
+      "name": "Evan Bouchard",
+      "teamAbbrev": "EDM",
+      "pos": "D",
+      "age": 26,
+      "recent": {
+       "season": "'25-26",
+       "g": 21,
+       "a": 74
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 14,
+       "a": 53
+      }
+     },
+     {
+      "playerId": 8484955,
+      "name": "Matthew Schaefer",
+      "teamAbbrev": "NYI",
+      "pos": "D",
+      "age": 18,
+      "recent": {
+       "season": "'25-26",
+       "g": 0,
+       "a": 0
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 0,
+       "a": 0
+      }
+     }
+    ],
     "T": []
    },
    "replaced": []
@@ -45,6 +490,162 @@
    "teamId": "scott",
    "name": "Connor McDavid",
    "pos": "C"
+  },
+  {
+   "pick": 2,
+   "teamId": "scott",
+   "name": "David Pastrnak",
+   "pos": "RW"
+  },
+  {
+   "pick": 3,
+   "teamId": "scott",
+   "name": "Macklin Celebrini",
+   "pos": "C"
+  },
+  {
+   "pick": 4,
+   "teamId": "scott",
+   "name": "Cale Makar",
+   "pos": "D"
+  },
+  {
+   "pick": 5,
+   "teamId": "scott",
+   "name": "Mikko Rantanen",
+   "pos": "RW"
+  },
+  {
+   "pick": 6,
+   "teamId": "scott",
+   "name": "Sam Reinhart",
+   "pos": "C"
+  },
+  {
+   "pick": 7,
+   "teamId": "scott",
+   "name": "Sebastian Aho",
+   "pos": "C"
+  },
+  {
+   "pick": 8,
+   "teamId": "scott",
+   "name": "Mika Zibanejad",
+   "pos": "C"
+  },
+  {
+   "pick": 9,
+   "teamId": "scott",
+   "name": "JJ Peterka",
+   "pos": "RW"
+  },
+  {
+   "pick": 10,
+   "teamId": "scott",
+   "name": "Adam Fox",
+   "pos": "D"
+  },
+  {
+   "pick": 11,
+   "teamId": "scott",
+   "name": "Jack Eichel",
+   "pos": "C"
+  },
+  {
+   "pick": 12,
+   "teamId": "scott",
+   "name": "Mark Stone",
+   "pos": "RW"
+  },
+  {
+   "pick": 13,
+   "teamId": "scott",
+   "name": "Mitch Marner",
+   "pos": "RW"
+  },
+  {
+   "pick": 14,
+   "teamId": "scott",
+   "name": "Morgan Geekie",
+   "pos": "C"
+  },
+  {
+   "pick": 15,
+   "teamId": "james",
+   "name": "Leon Draisaitl",
+   "pos": "C"
+  },
+  {
+   "pick": 16,
+   "teamId": "james",
+   "name": "Nathan MacKinnon",
+   "pos": "C"
+  },
+  {
+   "pick": 17,
+   "teamId": "james",
+   "name": "Auston Matthews",
+   "pos": "C"
+  },
+  {
+   "pick": 18,
+   "teamId": "james",
+   "name": "Nikita Kucherov",
+   "pos": "RW"
+  },
+  {
+   "pick": 19,
+   "teamId": "james",
+   "name": "Jason Robertson",
+   "pos": "LW"
+  },
+  {
+   "pick": 20,
+   "teamId": "james",
+   "name": "Quinn Hughes",
+   "pos": "D"
+  },
+  {
+   "pick": 21,
+   "teamId": "james",
+   "name": "Kirill Kaprizov",
+   "pos": "LW"
+  },
+  {
+   "pick": 22,
+   "teamId": "james",
+   "name": "William Nylander",
+   "pos": "RW"
+  },
+  {
+   "pick": 23,
+   "teamId": "james",
+   "name": "Evan Bouchard",
+   "pos": "D"
+  },
+  {
+   "pick": 24,
+   "teamId": "james",
+   "name": "Kyle Connor",
+   "pos": "LW"
+  },
+  {
+   "pick": 25,
+   "teamId": "james",
+   "name": "Mark Scheifele",
+   "pos": "C"
+  },
+  {
+   "pick": 26,
+   "teamId": "james",
+   "name": "Wyatt Johnston",
+   "pos": "C"
+  },
+  {
+   "pick": 27,
+   "teamId": "james",
+   "name": "Matthew Schaefer",
+   "pos": "D"
   }
  ]
 }
