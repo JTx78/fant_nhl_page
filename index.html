@@ -204,7 +204,7 @@
     <div class="format-chips">
       <span class="chip">Skaters &mdash; <strong>2&times;G + 1&times;A = Pts</strong></span>
       <span class="chip">Team pick &mdash; <strong>&minus;1&times;GA (excl. EN) + 10 per shutout</strong></span>
-      <span class="chip">Roster &mdash; <strong>14 F &middot; 4 D &middot; 1 Team</strong></span>
+      <span class="chip">Roster &mdash; <strong>14 F &middot; 4 D &middot; 2 Team</strong></span>
     </div>
   </header>
 
@@ -221,7 +221,7 @@
     <div class="summary-stat">
       <span class="summary-label">Roster Filled</span>
       <span class="summary-value num"><span id="sumFilled">1</span><span class="of">/18</span></span>
-      <span class="summary-open" id="sumOpen">13 F &middot; 4 D &middot; 1 Team open</span>
+      <span class="summary-open" id="sumOpen">13 F &middot; 4 D &middot; 2 Team open</span>
     </div>
     <div class="summary-stat">
       <span class="summary-label">Last Season Goals</span>
@@ -253,7 +253,7 @@
   </section>
 
   <section class="roster-section">
-    <div class="section-head"><h2>Team Pick</h2><span class="fill-count num" id="tCount">0 / 1 filled</span></div>
+    <div class="section-head"><h2>Team Pick</h2><span class="fill-count num" id="tCount">0 / 2 filled</span></div>
     <div id="goalWrap"></div>
   </section>
 
@@ -266,7 +266,7 @@
 <script>
   let TEAMS = [];
   let DRAFT_LOG = [];
-  const ROSTER_LIMITS = { F: 14, D: 4, T: 1 };
+  const ROSTER_LIMITS = { F: 14, D: 4, T: 2 };
 
   function byId(id) { return TEAMS.find(function (t) { return t.id === id; }); }
   function fp(g, a) { return 2 * g + a; }
