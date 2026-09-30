@@ -167,6 +167,13 @@ python3 -m http.server 8000
 - **Git is the site owner's, not an assistant's, to drive.** Nothing here should ever be
   committed, pushed, or merged by an automated assistant without the repo owner running
   those commands themselves.
+- **The nightly workflow's season is hardcoded, not read from anywhere.**
+  `.github/workflows/nightly-stats.yml` hardcodes `data/2026-2027` in three places (the
+  `--out-dir` flag and both the `git diff`/`git add` paths) and never looks at `rosters.json`.
+  `scripts/draft.py init` can create a new season's directory (e.g. `data/2027-2028/`) at any
+  time without affecting the nightly job at all — but when that new season actually goes
+  live, those three hardcoded references need a manual bump to point at it, or nightly stats
+  keep silently fetching the old season.
 
 ## License
 
