@@ -314,12 +314,13 @@
   }
 
   function renderStandings() {
+    const rosterSize = 18;
     const rows = model.teams.slice().sort(function (a, b) { return b.total - a.total; });
     const lead = rows[0].total;
     const top = Math.max.apply(null, rows.map(function (t) { return t.total; }).concat([1]));
     document.getElementById('standingsBody').innerHTML = rows.map(function (t, i) {
       const behind = i === 0 ? '—' : signed(t.total - lead);
-      const open = t.filled < 12 ? '<span class="mgr-sub">' + t.filled + '/12 drafted</span>' : '';
+      const open = t.filled < rosterSize ? '<span class="mgr-sub">' + t.filled + '/' + rosterSize + ' drafted</span>' : '';
       const w = Math.max(0, Math.round(100 * t.total / top));
       return '<tr class="' + (i === 0 ? 'first' : '') + '">' +
         '<td class="rank">' + (i + 1) + '</td>' +

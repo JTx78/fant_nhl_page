@@ -204,7 +204,7 @@
     <div class="format-chips">
       <span class="chip">Skaters &mdash; <strong>2&times;G + 1&times;A = Pts</strong></span>
       <span class="chip">Team pick &mdash; <strong>&minus;1&times;GA (excl. EN) + 10 per shutout</strong></span>
-      <span class="chip">Roster &mdash; <strong>8 F &middot; 3 D &middot; 1 Team</strong></span>
+      <span class="chip">Roster &mdash; <strong>14 F &middot; 3 D &middot; 1 Team</strong></span>
     </div>
   </header>
 
@@ -220,8 +220,8 @@
   <section class="summary-bar">
     <div class="summary-stat">
       <span class="summary-label">Roster Filled</span>
-      <span class="summary-value num"><span id="sumFilled">1</span><span class="of">/12</span></span>
-      <span class="summary-open" id="sumOpen">7 F &middot; 3 D &middot; 1 Team open</span>
+      <span class="summary-value num"><span id="sumFilled">1</span><span class="of">/18</span></span>
+      <span class="summary-open" id="sumOpen">13 F &middot; 3 D &middot; 1 Team open</span>
     </div>
     <div class="summary-stat">
       <span class="summary-label">Last Season Goals</span>
@@ -243,7 +243,7 @@
   </section>
 
   <section class="roster-section">
-    <div class="section-head"><h2>Forwards</h2><span class="fill-count num" id="fCount">1 / 8 filled</span></div>
+    <div class="section-head"><h2>Forwards</h2><span class="fill-count num" id="fCount">1 / 14 filled</span></div>
     <div class="slot-grid forwards" id="forwardsGrid"></div>
   </section>
 
@@ -266,6 +266,7 @@
 <script>
   let TEAMS = [];
   let DRAFT_LOG = [];
+  const ROSTER_LIMITS = { F: 14, D: 3, T: 1 };
 
   function byId(id) { return TEAMS.find(function (t) { return t.id === id; }); }
   function fp(g, a) { return 2 * g + a; }
@@ -326,10 +327,11 @@
 
   function renderTabs() {
     const wrap = document.getElementById('teamTabs');
+    const totalSlots = ROSTER_LIMITS.F + ROSTER_LIMITS.D + ROSTER_LIMITS.T;
     wrap.innerHTML = TEAMS.map(function (t) {
       const active = t.id === activeTeam;
       return '<button class="team-tab' + (active ? ' active' : '') + '" data-team="' + t.id + '" aria-pressed="' + active + '">' +
-        t.name + ' <span class="fill-badge num">' + fillCount(t) + '/12</span></button>';
+        t.name + ' <span class="fill-badge num">' + fillCount(t) + '/' + totalSlots + '</span></button>';
     }).join('');
     wrap.querySelectorAll('.team-tab').forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -344,9 +346,9 @@
     const goals = skaters.reduce(function (s, p) { return s + p.recent.g; }, 0);
     const assists = skaters.reduce(function (s, p) { return s + p.recent.a; }, 0);
     const pts = skaters.reduce(function (s, p) { return s + fp(p.recent.g, p.recent.a); }, 0);
-    const openF = 8 - team.roster.F.filter(Boolean).length;
-    const openD = 3 - team.roster.D.filter(Boolean).length;
-    const openT = 1 - team.roster.T.filter(Boolean).length;
+    const openF = ROSTER_LIMITS.F - team.roster.F.filter(Boolean).length;
+    const openD = ROSTER_LIMITS.D - team.roster.D.filter(Boolean).length;
+    const openT = ROSTER_LIMITS.T - team.roster.T.filter(Boolean).length;
 
     document.getElementById('sumFilled').textContent = fillCount(team);
     document.getElementById('sumOpen').textContent = openF + ' F · ' + openD + ' D · ' + openT + ' Team open';
@@ -366,9 +368,9 @@
     document.getElementById('defenseGrid').innerHTML = team.roster.D.map(function (p, i) { return slotCardHTML('D' + (i + 1), p); }).join('');
     document.getElementById('goalWrap').innerHTML = goalCardHTML(team.roster.T[0]);
 
-    document.getElementById('fCount').textContent = team.roster.F.filter(Boolean).length + ' / 8 filled';
-    document.getElementById('dCount').textContent = team.roster.D.filter(Boolean).length + ' / 3 filled';
-    document.getElementById('tCount').textContent = team.roster.T.filter(Boolean).length + ' / 1 filled';
+    document.getElementById('fCount').textContent = team.roster.F.filter(Boolean).length + ' / ' + ROSTER_LIMITS.F + ' filled';
+    document.getElementById('dCount').textContent = team.roster.D.filter(Boolean).length + ' / ' + ROSTER_LIMITS.D + ' filled';
+    document.getElementById('tCount').textContent = team.roster.T.filter(Boolean).length + ' / ' + ROSTER_LIMITS.T + ' filled';
   }
 
   function renderDraftLog() {

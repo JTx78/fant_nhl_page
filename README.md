@@ -18,7 +18,7 @@ to keep the stats current.
 
 ## League format
 
-- 6 managers, 12 roster slots each: 8 Forwards, 3 Defense, 1 Team pick (an NHL team, not a player).
+- 6 managers, 18 roster slots each: 14 Forwards, 3 Defense, 1 Team pick (an NHL team, not a player).
 - Skaters score **2 × goals + 1 × assist**.
 - The Team pick scores **−1 × real goals against + 10 × shutouts** for that NHL team.
   "Real" excludes empty-net goals — those are shown as a separate, non-scoring EN count.
