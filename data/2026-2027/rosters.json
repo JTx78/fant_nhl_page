@@ -424,6 +424,23 @@
        "g": 33,
        "a": 38
       }
+     },
+     {
+      "playerId": 8479420,
+      "name": "Tage Thompson",
+      "teamAbbrev": "BUF",
+      "pos": "C",
+      "age": 29,
+      "recent": {
+       "season": "'25-26",
+       "g": 40,
+       "a": 41
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 44,
+       "a": 28
+      }
      }
     ],
     "D": [
@@ -646,6 +663,12 @@
    "teamId": "james",
    "name": "Matthew Schaefer",
    "pos": "D"
+  },
+  {
+   "pick": 28,
+   "teamId": "james",
+   "name": "Tage Thompson",
+   "pos": "C"
   }
  ]
 }

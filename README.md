@@ -11,6 +11,7 @@ to keep the stats current.
 |---|---|
 | `index.html` | Live 2026-27 lineup card — every manager's roster, filled slots, draft log |
 | `dashboard.html` | Live 2026-27 season dashboard — standings, a cumulative-points race chart, hot/cold skaters |
+| `breakdown.html` | Live 2026-27 player breakdown — each drafted skater's games played, goals, assists, points, PIM, and plus/minus |
 | `index-2025.html` | Archive: the completed 2025-26 season's final rosters |
 | `dashboard-2025.html` | Archive: the completed 2025-26 season's final dashboard |
 
