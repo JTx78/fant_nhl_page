@@ -215,7 +215,7 @@
     <ol class="draft-log-list" id="draftLogList"></ol>
   </section>
 
-  <h2 class="team-heading" id="teamHeading">Drew&rsquo;s Roster</h2>
+  <h2 class="team-heading" id="teamHeading">James&rsquo;s Roster</h2>
 
   <section class="summary-bar">
     <div class="summary-stat">
@@ -270,7 +270,7 @@
 
   function byId(id) { return TEAMS.find(function (t) { return t.id === id; }); }
   function fp(g, a) { return 2 * g + a; }
-  let activeTeam = 'you';
+  let activeTeam = 'james';
 
   function fillCount(team) {
     return [...team.roster.F, ...team.roster.D, ...team.roster.T].filter(Boolean).length;
