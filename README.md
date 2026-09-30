@@ -2,8 +2,8 @@
 
 A static site tracking a 6-manager fantasy hockey league: live draft tracking during the
 draft, then a season-long dashboard once games start. No build step, no server — plain
-HTML/CSS/JS served by GitHub Pages, plus one small Python script and a GitHub Action to
-keep the stats current.
+HTML/CSS/JS served by GitHub Pages, plus a couple of small Python scripts and a GitHub Action
+to keep the stats current.
 
 ## Pages
 
@@ -65,6 +65,17 @@ Both dashboards' JS fetches `rosters.json` plus the two data files and merges th
 `{season, asOf, players, teams}` shape that `dashboard-calc.js` expects. That file is pure
 data-crunching with no DOM access, shared by both dashboards, and testable directly in Node.
 
+## Setup
+
+`scripts/fetch_stats.py` is standard library only. `scripts/init_draft.py` needs `click` and
+`structlog`:
+
+```fish
+python3 -m venv .venv
+source .venv/bin/activate.fish
+pip install -r requirements.txt
+```
+
 ## Running the fetch script
 
 ```fish
@@ -86,6 +97,27 @@ picked up automatically. The script also refuses to overwrite a file with fewer 
 it already has for any player or team (a defense against a partial/failed fetch silently
 erasing history), and writes atomically (temp file + rename) so a crash mid-run can't
 corrupt the output.
+
+## Starting a new draft
+
+```fish
+python3 scripts/init_draft.py Drew Mike Matt Travis James Mac --season 2027-2028
+python3 scripts/init_draft.py Drew Mike Matt Travis James Mac --season 27-28   # same result
+python3 scripts/init_draft.py Drew Mike Matt Travis James Mac --season 2027-2028 --force
+```
+
+Writes a blank line card to `data/<start-year>-<start-year + 1>/rosters.json` — one team per
+name, in the order given (that's the draft order), each with empty `F`/`D`/`T` rosters and an
+empty `draftLog`, ready to fill in as the draft happens. `--season` accepts `2027`, `27-28`, or
+`2027-2028`; all three resolve to the same directory. Refuses to overwrite an existing file
+unless `--force` is passed, and never touches another season's directory, so it's safe to run
+before an old season's data is finalized. `--out-file` and `--data-dir` override the filename
+and the root data directory if needed.
+
+Each team's `id` is a plain lowercase slug of the name passed in (`"Drew"` → `"drew"`), not the
+`"you"` id the current `index.html`/`dashboard.html` hardcode for the active-tab default and
+per-manager colors — those color maps are hand-written for this season's six names and won't
+pick up a new draft's names automatically.
 
 ## Nightly pipeline
 
@@ -131,3 +163,9 @@ python3 -m http.server 8000
 - **Git is the site owner's, not an assistant's, to drive.** Nothing here should ever be
   committed, pushed, or merged by an automated assistant without the repo owner running
   those commands themselves.
+
+## License
+
+[PolyForm Noncommercial License 1.0.0](LICENSE) — free to use, study, and modify for any
+noncommercial purpose (personal, hobby, research, education); commercial use requires a
+separate license from the copyright holder.
