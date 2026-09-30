@@ -4,7 +4,25 @@
    "id": "scott",
    "name": "Scott",
    "roster": {
-    "F": [],
+    "F": [
+     {
+      "playerId": 8478402,
+      "name": "Connor McDavid",
+      "teamAbbrev": "EDM",
+      "pos": "C",
+      "age": 28,
+      "recent": {
+       "season": "'25-26",
+       "g": 0,
+       "a": 0
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 0,
+       "a": 0
+      }
+     }
+    ],
     "D": [],
     "T": []
    },
@@ -21,5 +39,12 @@
    "replaced": []
   }
  ],
- "draftLog": []
+ "draftLog": [
+  {
+   "pick": 1,
+   "teamId": "scott",
+   "name": "Connor McDavid",
+   "pos": "C"
+  }
+ ]
 }
