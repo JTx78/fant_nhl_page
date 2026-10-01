@@ -15,7 +15,7 @@
        "season": "'25-26",
        "g": 0,
        "a": 0
-      },
+       },
       "prior": {
        "season": "'24-25",
        "g": 0,
@@ -208,6 +208,23 @@
        "g": 33,
        "a": 24
       }
+     },
+     {
+      "playerId": 8471214,
+      "name": "Alex Ovechkin",
+      "teamAbbrev": "WSH",
+      "pos": "LW",
+      "age": 41,
+      "recent": {
+       "season": "'25-26",
+       "g": 32,
+       "a": 32
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 44,
+       "a": 29
+      }
      }
     ],
     "D": [
@@ -244,9 +261,79 @@
        "g": 10,
        "a": 51
       }
+     },
+     {
+      "playerId": 8479325,
+      "name": "Charlie McAvoy",
+      "teamAbbrev": "BOS",
+      "pos": "D",
+      "age": 28,
+      "recent": {
+       "season": "'25-26",
+       "g": 11,
+       "a": 50
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 7,
+       "a": 16
+      }
+     },
+     {
+      "playerId": 8471724,
+      "name": "Kris Letang",
+      "teamAbbrev": "PIT",
+      "pos": "D",
+      "age": 39,
+      "recent": {
+       "season": "'25-26",
+       "g": 3,
+       "a": 31
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 9,
+       "a": 21
+      }
+     },
+     {
+      "playerId": 8474578,
+      "name": "Erik Karlsson",
+      "teamAbbrev": "PIT",
+      "pos": "D",
+      "age": 36,
+      "recent": {
+       "season": "'25-26",
+       "g": 15,
+       "a": 51
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 11,
+       "a": 42
+      }
      }
     ],
-    "T": []
+    "T": [
+     {
+      "name": "New York Rangers",
+      "teamAbbrev": "NYR",
+      "recent": {
+       "season": "'25-26",
+       "ga": 224,
+       "so": 3
+      }
+     },
+     {
+      "name": "Colorado Avalanche",
+      "teamAbbrev": "COL",
+      "recent": {
+       "season": "'25-26",
+       "ga": 0,
+       "so": 0
+      }
+     }
+    ]
    },
    "replaced": []
   },
@@ -441,6 +528,57 @@
        "g": 44,
        "a": 28
       }
+     },
+     {
+      "playerId": 8481540,
+      "name": "Cole Caufield",
+      "teamAbbrev": "MTL",
+      "pos": "RW",
+      "age": 25,
+      "recent": {
+       "season": "'25-26",
+       "g": 51,
+       "a": 37
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 37,
+       "a": 33
+      }
+     },
+     {
+      "playerId": 8471675,
+      "name": "Sidney Crosby",
+      "teamAbbrev": "PIT",
+      "pos": "C",
+      "age": 39,
+      "recent": {
+       "season": "'25-26",
+       "g": 29,
+       "a": 45
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 33,
+       "a": 58
+      }
+     },
+     {
+      "playerId": 8483489,
+      "name": "Fraser Minten",
+      "teamAbbrev": "BOS",
+      "pos": "C",
+      "age": 22,
+      "recent": {
+       "season": "'25-26",
+       "g": 17,
+       "a": 18
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 2,
+       "a": 2
+      }
      }
     ],
     "D": [
@@ -479,24 +617,60 @@
       }
      },
      {
-      "playerId": 8484955,
+      "playerId": 8485366,
       "name": "Matthew Schaefer",
       "teamAbbrev": "NYI",
       "pos": "D",
-      "age": 18,
+      "age": 19,
       "recent": {
        "season": "'25-26",
-       "g": 0,
-       "a": 0
+       "g": 23,
+       "a": 36
       },
       "prior": {
        "season": "'24-25",
        "g": 0,
        "a": 0
       }
+     },
+     {
+      "playerId": 8481605,
+      "name": "Jackson LaCombe",
+      "teamAbbrev": "ANA",
+      "pos": "D",
+      "age": 25,
+      "recent": {
+       "season": "'25-26",
+       "g": 10,
+       "a": 48
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 14,
+       "a": 29
+      }
      }
     ],
-    "T": []
+    "T": [
+     {
+      "name": "Boston Bruins",
+      "teamAbbrev": "BOS",
+      "recent": {
+       "season": "'25-26",
+       "ga": 250,
+       "so": 0
+      }
+     },
+     {
+      "name": "Minnesota Wild",
+      "teamAbbrev": "MIN",
+      "recent": {
+       "season": "'25-26",
+       "ga": 240,
+       "so": 0
+      }
+     }
+    ]
    },
    "replaced": []
   }
@@ -669,6 +843,78 @@
    "teamId": "james",
    "name": "Tage Thompson",
    "pos": "C"
+  },
+  {
+   "pick": 29,
+   "teamId": "scott",
+   "name": "Charlie McAvoy",
+   "pos": "D"
+  },
+  {
+   "pick": 30,
+   "teamId": "james",
+   "name": "Cole Caufield",
+   "pos": "RW"
+  },
+  {
+   "pick": 31,
+   "teamId": "scott",
+   "name": "Alex Ovechkin",
+   "pos": "LW"
+  },
+  {
+   "pick": 32,
+   "teamId": "scott",
+   "name": "Kris Letang",
+   "pos": "D"
+  },
+  {
+   "pick": 33,
+   "teamId": "scott",
+   "name": "New York Rangers",
+   "pos": "T"
+  },
+  {
+   "pick": 34,
+   "teamId": "scott",
+   "name": "Erik Karlsson",
+   "pos": "D"
+  },
+  {
+   "pick": 35,
+   "teamId": "scott",
+   "name": "Colorado Avalanche",
+   "pos": "T"
+  },
+  {
+   "pick": 36,
+   "teamId": "james",
+   "name": "Sidney Crosby",
+   "pos": "C"
+  },
+  {
+   "pick": 37,
+   "teamId": "james",
+   "name": "Boston Bruins",
+   "pos": "T"
+  },
+  {
+   "pick": 38,
+   "teamId": "james",
+   "name": "Fraser Minten",
+   "pos": "C"
+  },
+  {
+   "pick": 39,
+   "teamId": "james",
+   "name": "Jackson LaCombe",
+   "pos": "D"
+  },
+  {
+   "pick": 40,
+   "teamId": "james",
+   "name": "Minnesota Wild",
+   "pos": "T"
   }
  ]
 }

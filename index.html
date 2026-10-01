@@ -165,10 +165,13 @@
   .player-stats dd { margin: 0; font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 0.95rem; }
 
   /* ---------- Team pick (goals-against slot) ---------- */
-  .goal-card { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 9px; padding: 1.1rem 1.3rem; box-shadow: var(--shadow); display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+  .goal-card { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 9px; padding: 1.1rem 1.3rem; box-shadow: var(--shadow); }
+  .goal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.7rem; }
   .goal-card.open { border-left: 4px dashed var(--ink-faint); background: transparent; box-shadow: none; }
   .goal-formula { font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; color: var(--ink-muted); }
-  .goal-stats { display: flex; gap: 1.4rem; }
+  .goal-season-row { display: flex; align-items: center; gap: 1rem; border-top: 1px solid var(--border); padding-top: 0.6rem; margin-top: 0.6rem; }
+  .goal-season-label { min-width: 4.5rem; font-family: "IBM Plex Mono", monospace; font-size: 0.72rem; color: var(--ink-muted); }
+  .goal-stats { display: flex; gap: 1.1rem; flex-wrap: wrap; }
   .goal-stats div { display: flex; flex-direction: column; gap: 0.1rem; }
   .goal-stats dt { font-size: 0.65rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.05em; }
   .goal-stats dd { margin: 0; font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 1.1rem; }
@@ -196,7 +199,7 @@
   <header class="masthead">
     <div class="masthead-row">
       <div>
-        <div class="eyebrow">2026&ndash;27 Season &middot; 6-Team Fantasy Draft</div>
+        <div class="eyebrow">2026&ndash;27 Season &middot; 2-Team Fantasy Draft</div>
         <h1>Lineup Card</h1>
       </div>
       <div class="updated"><span id="lastUpdated">Updated after pick 49 &middot; draft running in WhatsApp</span> &middot; <a href="dashboard.html">Season dashboard</a> &middot; <a href="breakdown.html">Player breakdown &rarr;</a></div>
@@ -254,7 +257,7 @@
 
   <section class="roster-section">
     <div class="section-head"><h2>Team Pick</h2><span class="fill-count num" id="tCount">0 / 2 filled</span></div>
-    <div id="goalWrap"></div>
+    <div class="goal-grid" id="goalWrap"></div>
   </section>
 
   <footer class="note">
@@ -266,6 +269,8 @@
 <script>
   let TEAMS = [];
   let DRAFT_LOG = [];
+  let TEAM_STATS = {};
+  let TEAM_STATS_AS_OF = null;
   const ROSTER_LIMITS = { F: 14, D: 4, T: 2 };
 
   function byId(id) { return TEAMS.find(function (t) { return t.id === id; }); }
@@ -294,35 +299,57 @@
       '</article>';
   }
 
-  function goalCardHTML(pick) {
+  function currentTeamStats(pick) {
+    return (TEAM_STATS[pick.teamAbbrev] || []).reduce(function (total, game) {
+      total.ga += game.ga;
+      total.en += game.en;
+      total.so += game.so;
+      return total;
+    }, { ga: 0, en: 0, so: 0 });
+  }
+
+  function goalCardHTML(pick, index) {
+    const label = 'T' + (index + 1);
     if (!pick) {
       return '' +
         '<div class="goal-card open">' +
           '<div>' +
-            '<span class="slot-label">T1</span>' +
+            '<span class="slot-label">' + label + '</span>' +
             '<div class="open-tag" style="margin-top:0.3rem;">Open &mdash; pick an NHL team, not a goalie</div>' +
           '</div>' +
           '<div class="goal-formula">Scores as &minus;1&times;GA (excl. EN) + 10 per shutout</div>' +
         '</div>';
     }
-    const total = -pick.recent.ga + 10 * pick.recent.so;
-    const enStat = typeof pick.recent.en === 'number'
-      ? '<div><dt>Empty Net</dt><dd class="num">' + pick.recent.en + '</dd></div>'
-      : '';
+    const stats = currentTeamStats(pick);
+    const total = -stats.ga + 10 * stats.so;
+    const previousTotal = -pick.recent.ga + 10 * pick.recent.so;
     return '' +
-      '<div class="goal-card">' +
-        '<div>' +
-          '<span class="slot-label">T1</span>' +
-          '<div class="player-name" style="margin-top:0.3rem;">' + pick.name + '</div>' +
-          '<div class="player-meta">' + pick.teamAbbrev + '</div>' +
-        '</div>' +
-        '<dl class="goal-stats">' +
-          '<div><dt>Goals Against</dt><dd class="num neg">&minus;' + pick.recent.ga + '</dd></div>' +
-          '<div><dt>Shutouts</dt><dd class="num pos">+' + (10 * pick.recent.so) + '</dd></div>' +
-          enStat +
-          '<div><dt>Total</dt><dd class="num">' + (total >= 0 ? '+' : '') + total + '</dd></div>' +
-        '</dl>' +
-      '</div>';
+        '<div class="goal-card">' +
+          '<div>' +
+            '<span class="slot-label">' + label + '</span>' +
+            '<div class="player-name" style="margin-top:0.3rem;">' + pick.name + '</div>' +
+            '<div class="player-meta">' + pick.teamAbbrev + '</div>' +
+          '</div>' +
+          '<div class="goal-season-row">' +
+            '<span class="goal-season-label">2025&ndash;26</span>' +
+            '<dl class="goal-stats">' +
+              '<div><dt>Goals Against</dt><dd class="num neg">&minus;' + pick.recent.ga + '</dd></div>' +
+              '<div><dt>Shutout pts</dt><dd class="num pos">+' + (10 * pick.recent.so) + '</dd></div>' +
+              '<div><dt>Total</dt><dd class="num">' + (previousTotal >= 0 ? '+' : '') + previousTotal + '</dd></div>' +
+            '</dl>' +
+          '</div>' +
+          '<div class="goal-season-row">' +
+            '<span class="goal-season-label">2026&ndash;27</span>' +
+            '<dl class="goal-stats">' +
+              '<div><dt>Goals Against</dt><dd class="num neg">&minus;' + stats.ga + '</dd></div>' +
+              '<div><dt>Shutout pts</dt><dd class="num pos">+' + (10 * stats.so) + '</dd></div>' +
+              '<div><dt>Empty Net</dt><dd class="num">' + stats.en + '</dd></div>' +
+              '<div><dt>Total</dt><dd class="num">' + (total >= 0 ? '+' : '') + total + '</dd></div>' +
+            '</dl>' +
+          '</div>' +
+          '<div class="player-meta" style="margin-top:0.4rem;">Current season through ' +
+            (TEAM_STATS_AS_OF || 'no games played') + '</div>' +
+        '</div>';
   }
 
   function renderTabs() {
@@ -356,9 +383,13 @@
     document.getElementById('sumAssists').textContent = assists;
     document.getElementById('sumPoints').textContent = pts;
 
-    const g = team.roster.T[0];
-    document.getElementById('sumGoalPts').textContent = g ? (function () { const t = -g.recent.ga + 10 * g.recent.so; return (t >= 0 ? '+' : '') + t; })() : '—';
-    document.getElementById('sumGoalNote').textContent = g ? g.name : 'no team picked yet';
+    const picks = team.roster.T.filter(Boolean);
+    const teamPoints = picks.reduce(function (total, pick) {
+      const stats = currentTeamStats(pick);
+      return total - stats.ga + 10 * stats.so;
+    }, 0);
+    document.getElementById('sumGoalPts').textContent = picks.length ? (teamPoints >= 0 ? '+' : '') + teamPoints : '—';
+    document.getElementById('sumGoalNote').textContent = picks.length ? picks.map(function (pick) { return pick.name; }).join(', ') : 'no team picked yet';
 
     document.getElementById('teamHeading').textContent = team.name + '’s Roster';
   }
@@ -366,7 +397,9 @@
   function renderRoster(team) {
     document.getElementById('forwardsGrid').innerHTML = team.roster.F.map(function (p, i) { return slotCardHTML('F' + (i + 1), p); }).join('');
     document.getElementById('defenseGrid').innerHTML = team.roster.D.map(function (p, i) { return slotCardHTML('D' + (i + 1), p); }).join('');
-    document.getElementById('goalWrap').innerHTML = goalCardHTML(team.roster.T[0]);
+    document.getElementById('goalWrap').innerHTML = Array.from({ length: ROSTER_LIMITS.T }, function (_, i) {
+      return goalCardHTML(team.roster.T[i], i);
+    }).join('');
 
     document.getElementById('fCount').textContent = team.roster.F.filter(Boolean).length + ' / ' + ROSTER_LIMITS.F + ' filled';
     document.getElementById('dCount').textContent = team.roster.D.filter(Boolean).length + ' / ' + ROSTER_LIMITS.D + ' filled';
@@ -396,19 +429,29 @@
     renderDraftLog();
   }
 
-  function applyData(data) {
-    TEAMS = data.teams;
-    DRAFT_LOG = data.draftLog;
+  function applyData(rosters, teamStats) {
+    TEAMS = rosters.teams;
+    DRAFT_LOG = rosters.draftLog;
+    TEAM_STATS = teamStats.teams;
+    TEAM_STATS_AS_OF = teamStats.asOf;
     const last = DRAFT_LOG.length ? DRAFT_LOG[DRAFT_LOG.length - 1].pick : 0;
     document.getElementById('lastUpdated').innerHTML = 'Updated after pick ' + last + ' &middot; draft running in WhatsApp';
     renderAll();
   }
 
-  fetch('data/2026-2027/rosters.json', { cache: 'no-cache' })
-    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(applyData)
+  Promise.all([
+    fetch('data/2026-2027/rosters.json', { cache: 'no-cache' }).then(function (r) {
+      if (!r.ok) throw new Error('rosters.json: ' + r.status);
+      return r.json();
+    }),
+    fetch('data/2026-2027/teamdata.json', { cache: 'no-cache' }).then(function (r) {
+      if (!r.ok) throw new Error('teamdata.json: ' + r.status);
+      return r.json();
+    })
+  ])
+    .then(function (data) { applyData(data[0], data[1]); })
     .catch(function () {
-      document.getElementById('lastUpdated').textContent = 'Could not load data/2026-2027/rosters.json';
+      document.getElementById('lastUpdated').textContent = 'Could not load 2026-2027 roster or team stats';
     });
 </script>
 </body>

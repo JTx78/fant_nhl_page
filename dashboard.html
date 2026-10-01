@@ -186,7 +186,7 @@
   <header class="masthead">
     <div class="masthead-row">
       <div>
-        <div class="eyebrow">2026&ndash;27 Season &middot; 6-Team Fantasy League</div>
+        <div class="eyebrow">2026&ndash;27 Season &middot; 2-Team Fantasy Draft</div>
         <h1>Season Dashboard</h1>
       </div>
       <div class="updated" id="asOf">Loading&hellip;</div>
@@ -234,7 +234,7 @@
     </div>
     <div class="chart-card">
       <div class="legend" id="legend"></div>
-      <div class="chart-box"><canvas id="raceChart" role="img" aria-label="Line chart of each manager's fantasy points over the season"></canvas></div>
+      <div class="chart-box"><canvas id="raceChart" role="img" aria-label="Fantasy points over the season, with points per night shown as bars by date"></canvas></div>
     </div>
   </section>
 
@@ -346,13 +346,16 @@
 
   function renderChart() {
     const grid = cssVar('--grid'), muted = cssVar('--ink-muted');
+    const perNight = view === 'perNight';
     const datasets = model.teams.map(function (t) {
       return {
         label: t.name,
         data: t.series[view],
         borderColor: cssVar(TEAM_COLOR_VAR[t.id]),
         backgroundColor: cssVar(TEAM_COLOR_VAR[t.id]),
-        borderWidth: 2.4,
+        borderWidth: perNight ? 0 : 2.4,
+        borderRadius: perNight ? 2 : 0,
+        maxBarThickness: perNight ? 18 : undefined,
         pointRadius: 0,
         pointHoverRadius: 4,
         tension: 0.15,
@@ -362,24 +365,35 @@
     });
     if (chart) chart.destroy();
     chart = new Chart(document.getElementById('raceChart'), {
-      type: 'line',
+      type: perNight ? 'bar' : 'line',
       data: { labels: model.dates, datasets: datasets },
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        indexAxis: 'x',
         interaction: { mode: 'index', intersect: false },
         plugins: {
           legend: { display: false },
           tooltip: {
-            itemSort: function (a, b) { return b.parsed.y - a.parsed.y; },
             callbacks: {
-              label: function (c) { return ' ' + c.dataset.label + ': ' + (view === 'total' ? c.parsed.y : c.parsed.y.toFixed(2)); }
+              label: function (c) {
+                const value = c.parsed.y;
+                return ' ' + c.dataset.label + ': ' +
+                  (view === 'total' ? value : value.toFixed(2));
+              }
             }
           }
         },
         scales: {
-          x: { ticks: { color: muted, maxTicksLimit: 8, maxRotation: 0 }, grid: { display: false } },
-          y: { title: { display: true, text: VIEWS[view], color: muted }, ticks: { color: muted }, grid: { color: grid } }
+          x: {
+            ticks: { color: muted, maxTicksLimit: 8, maxRotation: 0 },
+            grid: { display: false }
+          },
+          y: {
+            title: { display: true, text: VIEWS[view], color: muted },
+            ticks: { color: muted },
+            grid: { display: !perNight, color: grid }
+          }
         }
       }
     });
@@ -395,7 +409,7 @@
   }
 
   function renderHotCold() {
-    const r = model.hotCold(hcDays, 5);
+    const r = model.hotCold(hcDays, 10);
     hcList('hotList', r.hot);
     hcList('coldList', r.cold);
   }
