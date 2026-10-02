@@ -124,14 +124,15 @@ Each team's `id` is a plain lowercase slug of the name passed in (`"Drew"` → `
 per-manager colors — those color maps are hand-written for this season's six names and won't
 pick up a new draft's names automatically.
 
-## Nightly pipeline
+## Stats pipeline
 
-`.github/workflows/nightly-stats.yml` runs the fetch script every night (`0 9 * * *` UTC —
-late enough that West Coast games are long finished) and commits `data/2026-2027/
-playerdata.json`/`teamdata.json` only if something actually changed. It also supports a
-manual "Run workflow" trigger from the Actions tab, or `gh workflow run nightly-stats.yml`.
-Runs on `ubuntu-26.04` (pinned explicitly, ahead of the `ubuntu-latest` migration, so a
-future runner-image bump doesn't happen mid-season without anyone deciding it).
+`.github/workflows/nightly-stats.yml` runs the fetch script every 10 minutes and commits
+`data/2026-2027/playerdata.json`/`teamdata.json` only if either file changed. When stats
+change, it also deploys the updated site to GitHub Pages; otherwise it skips the commit and
+deployment. It supports a manual "Run workflow" trigger from the Actions tab, or
+`gh workflow run nightly-stats.yml`. Runs on `ubuntu-26.04` (pinned explicitly, ahead of the
+`ubuntu-latest` migration, so a future runner-image bump doesn't happen mid-season without
+anyone deciding it).
 
 ## Testing locally
 

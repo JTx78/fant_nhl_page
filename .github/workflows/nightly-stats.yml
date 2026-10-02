@@ -1,22 +1,25 @@
-name: Nightly stats fetch
+name: Stats fetch and Pages deploy
 
 on:
   schedule:
-    # ~04:00 America/New_York (EST, UTC-5); one hour earlier in EDT.
-    # Late enough that West Coast games (10pm ET starts) are long final.
-    - cron: '0 9 * * *'
+    - cron: '*/10 * * * *'
   workflow_dispatch: {}
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
-  group: nightly-stats
+  group: pages
   cancel-in-progress: false
 
 jobs:
   fetch:
     runs-on: ubuntu-26.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
 
@@ -27,14 +30,35 @@ jobs:
       - name: Fetch player and team game logs
         run: python3 scripts/fetch_stats.py --out-dir data/2026-2027
 
-      - name: Commit playerdata.json / teamdata.json if either changed
+      - name: Check for updated stats
+        id: stats
         run: |
           if git diff --quiet -- data/2026-2027/playerdata.json data/2026-2027/teamdata.json; then
-            echo "No new games; nothing to commit."
-            exit 0
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Commit updated stats
+        if: steps.stats.outputs.changed == 'true'
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/2026-2027/playerdata.json data/2026-2027/teamdata.json
-          git commit -m "Nightly stats update ($(date -u +%Y-%m-%d))"
+          git commit -m "Update stats ($(date -u +%Y-%m-%dT%H:%MZ))"
           git push
+
+      - name: Configure GitHub Pages
+        if: steps.stats.outputs.changed == 'true'
+        uses: actions/configure-pages@v5
+
+      - name: Upload site artifact
+        if: steps.stats.outputs.changed == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        if: steps.stats.outputs.changed == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v5
