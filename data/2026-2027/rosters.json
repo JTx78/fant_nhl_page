@@ -225,6 +225,23 @@
        "g": 44,
        "a": 29
       }
+     },
+     {
+      "playerId": 8474141,
+      "name": "Patrick Kane",
+      "teamAbbrev": "CHI",
+      "pos": "RW",
+      "age": 37,
+      "recent": {
+       "season": "'25-26",
+       "g": 16,
+       "a": 41
+      },
+      "prior": {
+       "season": "'24-25",
+       "g": 21,
+       "a": 38
+      }
      }
     ],
     "D": [
@@ -294,23 +311,6 @@
        "season": "'24-25",
        "g": 9,
        "a": 21
-      }
-     },
-     {
-      "playerId": 8474578,
-      "name": "Erik Karlsson",
-      "teamAbbrev": "PIT",
-      "pos": "D",
-      "age": 36,
-      "recent": {
-       "season": "'25-26",
-       "g": 15,
-       "a": 51
-      },
-      "prior": {
-       "season": "'24-25",
-       "g": 11,
-       "a": 42
       }
      }
     ],
@@ -877,8 +877,8 @@
   {
    "pick": 34,
    "teamId": "scott",
-   "name": "Erik Karlsson",
-   "pos": "D"
+   "name": "Patrick Kane",
+   "pos": "RW"
   },
   {
    "pick": 35,

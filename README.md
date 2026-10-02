@@ -52,7 +52,9 @@ above. `draftLog` (2026-2027 only) is an ordered list of `{pick, teamId, name, p
 **`playerdata.json`** holds one array of per-game records per player, keyed by playerId.
 Each game record is intentionally broad — goals, assists, shots, PIM, TOI, power-play/
 shorthanded/game-winning/OT goals, plus-minus, shifts, home/away, opponent — so a future
-dashboard view doesn't require going back and re-fetching history.
+dashboard view doesn't require going back and re-fetching history. Its `updatedAt` field is
+the UTC date and time when the player stats last changed; an unchanged fetch preserves it.
+The season dashboard and player breakdown display that timestamp in Eastern Time.
 
 **`teamdata.json`** holds one array of per-game records per NHL team abbreviation:
 `{id, date, ga, en, so}`. `id` is the NHL game ID (also the incremental-fetch cursor —

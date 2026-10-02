@@ -277,6 +277,13 @@
   function fmt2(n) { return n.toFixed(2); }
   function signed(n) { return (n > 0 ? '+' : n < 0 ? '−' : '') + Math.abs(n); }
   function tone(n) { return n < 0 ? 'neg' : ''; }
+  function formatLastUpdated(value) {
+    const date = value && new Date(value);
+    if (!date || Number.isNaN(date.getTime())) return 'Last updated unavailable';
+    return 'Last updated ' + new Intl.DateTimeFormat('en-US', {
+      dateStyle: 'medium', timeStyle: 'short', timeZone: 'America/New_York'
+    }).format(date) + ' ET';
+  }
 
   function getJSON(url) {
     return fetch(url, { cache: 'no-cache' }).then(function (r) {
@@ -295,7 +302,7 @@
       getJSON(SEASON_DIR + '/' + prefix + 'teamdata.json').catch(function () { return null; })
     ]).then(function (r) {
       if (!r[0] || !r[1]) return null;
-      return { season: r[0].season, asOf: r[0].asOf, players: r[0].players, teams: r[1].teams };
+      return { season: r[0].season, asOf: r[0].asOf, updatedAt: r[0].updatedAt, players: r[0].players, teams: r[1].teams };
     });
   }
 
@@ -438,9 +445,10 @@
   load().then(function (d) {
     model = DashCalc.buildModel(d.rosters, d.stats);
     document.getElementById('sampleBanner').hidden = !d.sample;
-    document.getElementById('asOf').textContent = model.asOf
+    const statsThrough = model.asOf
       ? (d.sample ? 'Sample data through ' : 'Through ') + model.asOf
       : 'Season not started';
+    document.getElementById('asOf').textContent = statsThrough + ' · ' + formatLastUpdated(d.stats && d.stats.updatedAt);
     renderStandings(); renderLegend(); renderChart(); renderHotCold(); wire();
   }).catch(function (err) {
     document.getElementById('asOf').textContent = 'Could not load data (' + err.message + ')';

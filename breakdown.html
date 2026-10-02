@@ -144,6 +144,14 @@
     return value > 0 ? '+' + value : String(value);
   }
 
+  function formatLastUpdated(value) {
+    const date = value && new Date(value);
+    if (!date || Number.isNaN(date.getTime())) return 'Last updated unavailable';
+    return 'Last updated ' + new Intl.DateTimeFormat('en-US', {
+      dateStyle: 'medium', timeStyle: 'short', timeZone: 'America/New_York'
+    }).format(date) + ' ET';
+  }
+
   function render(rosters, stats) {
     const rows = [];
     rosters.teams.forEach(function (manager) {
@@ -196,7 +204,8 @@
     getJSON(DATA_DIR + '/rosters.json'),
     getJSON(DATA_DIR + '/playerdata.json')
   ]).then(function (data) {
-    document.getElementById('asOf').textContent = data[1].asOf ? 'Stats through ' + data[1].asOf : 'Season not started';
+    const statsThrough = data[1].asOf ? 'Stats through ' + data[1].asOf : 'Season not started';
+    document.getElementById('asOf').textContent = statsThrough + ' · ' + formatLastUpdated(data[1].updatedAt);
     render(data[0], data[1]);
   }).catch(function (error) {
     const message = document.getElementById('message');

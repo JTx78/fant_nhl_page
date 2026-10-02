@@ -33,6 +33,7 @@ every run means a late correction to a skater's stat line is picked up automatic
 Any failed request aborts the run without touching either output file.
 """
 import argparse
+from datetime import datetime, timezone
 import json
 import os
 import sys
@@ -134,9 +135,11 @@ def team_log(abbr, season, existing=None):
     return sorted(rows, key=lambda r: r["date"])
 
 
-def write_json(path, obj, old_rows_by_key=None):
+def write_json(path, obj, old_rows_by_key=None, track_updated_at=False):
     """Write obj (a {"...": ..., <key>: {id: [rows]}} dict) atomically. If old_rows_by_key
-    is given, refuse to write when any id's row count shrank versus the prior file."""
+    is given, refuse to write when any id's row count shrank versus the prior file. If
+    track_updated_at is set, preserve the prior timestamp when the data is unchanged."""
+    old = None
     if old_rows_by_key and os.path.exists(path):
         with open(path) as f:
             old = json.load(f)
@@ -145,6 +148,14 @@ def write_json(path, obj, old_rows_by_key=None):
             if len(rows) < len(old.get(key, {}).get(k, [])):
                 sys.exit("refusing to write %s: %s %s shrank (%d -> %d rows)"
                          % (path, key, k, len(old[key][k]), len(rows)))
+    elif track_updated_at and os.path.exists(path):
+        with open(path) as f:
+            old = json.load(f)
+    if track_updated_at:
+        if old and all(old.get(field) == value for field, value in obj.items()) and old.get("updatedAt"):
+            obj["updatedAt"] = old["updatedAt"]
+        else:
+            obj["updatedAt"] = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
     text = json.dumps(obj, separators=(",", ":"), sort_keys=True) + "\n"
     tmp = path + ".tmp"
     with open(tmp, "w") as f:
@@ -187,7 +198,8 @@ def main():
     as_of = max(dates) if dates else None
 
     player_path = os.path.join(args.out_dir, args.prefix + "playerdata.json")
-    write_json(player_path, {"season": args.season, "asOf": as_of, "players": players}, old_rows_by_key="players")
+    write_json(player_path, {"season": args.season, "asOf": as_of, "players": players},
+               old_rows_by_key="players", track_updated_at=True)
     write_json(team_path, {"season": args.season, "asOf": as_of, "teams": teams}, old_rows_by_key="teams")
     print("season %d: %d players -> %s, %d teams -> %s, asOf %s"
           % (args.season, len(players), player_path, len(teams), team_path, as_of))
